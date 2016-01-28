@@ -19,6 +19,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Collections.Specialized;
 using HtmlAgilityPack;
+using System.Net;
 
 namespace OEHP_WPF_Rework
 {
@@ -336,6 +337,40 @@ namespace OEHP_WPF_Rework
                     } //End Debit Card Switch
                     break;
 
+                case "INTERAC":
+
+                    switch (chargeTypeCombo.Text)
+                    {
+                        case "REFUND":
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParamText.Text); // Build Parameters for POST
+                            postParametersText.Text = parameters;
+                            writeToLog(parameters);
+
+                            otk = PaymentEngine.webRequest_Post(parameters);
+
+                            hostPayBrowser.Navigate(PaymentEngine.otkURL + otk); //Navigate Web Browser to Paypage URL + Session Token
+                            break;
+
+                        case "PURCHASE":
+                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
+                            parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParamText.Text); // Build Parameters for POST
+                            postParametersText.Text = parameters;
+                            writeToLog(parameters);
+
+                            otk = PaymentEngine.webRequest_Post(parameters);
+
+                            hostPayBrowser.Navigate(PaymentEngine.otkURL + otk); //Navigate Web Browser to Paypage URL + Session Token
+                            break;
+
+                        default:
+                            MessageBox.Show("An error has occured, Invalid Transaction Parameters");
+                            break;
+
+                    } //End  INterac Switch
+                    break;
+
                 case "ACH":
                     switch (chargeTypeCombo.Text)
                     {
@@ -481,15 +516,13 @@ namespace OEHP_WPF_Rework
         }
         private void hostPayBrowser_LoadCompleted(object sender, NavigationEventArgs e)
         {
+            //Performs Query on Every Doc Completed, if it sees the response_code=1 then it it displays the query result. Better implementation to come.
+
             string parameters;
             string finishedResponse = @"^(.*?(\b&response_code=1\b)[^$]*)$";
             string queryResult;
             bool performQuery;
-            //HtmlAgilityPack.HtmlDocument docroot = new  HtmlAgilityPack.HtmlDocument();
-            //docroot.LoadHtml(hostpayHtml);
             
-
-            //var value = docroot.DocumentNode.SelectSingleNode("//input[@type='hidden' and @id='paymentFinishedSignal']").Attributes["value"].Value;
 
             if (null != hostPayBrowser.Document)
             {
@@ -553,6 +586,21 @@ namespace OEHP_WPF_Rework
                         break;
                 }
             }
+
+            //RCM Status Code, Will fire after every DocCompleted event.
+            string ssp = VariableHandler.SSP;
+            WebRequest wr = WebRequest.Create("https://ws.test.paygateway.com/HostPayService/v1/hostpay/transactions/status/" + ssp);
+            wr.Method = "GET";
+
+            Stream objStream;
+            objStream = wr.GetResponse().GetResponseStream();
+
+            StreamReader sr = new StreamReader(objStream);
+
+            string rcmStatus = sr.ReadToEnd();
+            rcmStatusText.Text = rcmStatus;
+
+
         }
 
         private void queryBrowser_LoadCompleted(object sender, NavigationEventArgs e)
@@ -665,6 +713,8 @@ namespace OEHP_WPF_Rework
 
         private void parseReceipt_Click(object sender, RoutedEventArgs e)
         {
+            //Performs additional Query and Displays Receipt
+
             string parameters;
             string finishedResponse = @"^(.*?(\b&response_code=1\b)[^$]*)$";
             string queryResult;
@@ -748,6 +798,11 @@ namespace OEHP_WPF_Rework
                     break;
             }
             
+        }
+
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

@@ -84,9 +84,9 @@ namespace OEHP_WPF_Rework
 
                 if (json.errorMessage == "Account Status is not set")
                 {
-                    // NYI IMplement
+                    MessageBox.Show("Account Status not Set, please verify OEHP account is set with proper charge types.");
                 }
-
+                VariableHandler.SSP = ssp;
                 return ssp;
             }
             catch (Exception ex)

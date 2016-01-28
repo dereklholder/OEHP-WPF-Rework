@@ -45,6 +45,8 @@
         <Image x:Name="sigImage" HorizontalAlignment="Left" Height="113" Margin="145,124,0,0" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
         <Label x:Name="approvalCodeLabel" Content="Charge Type:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="24" Margin="272,97,0,0" Width="79" Visibility="Hidden"/>
         <TextBox x:Name="approvalCodeText" HorizontalAlignment="Left" Height="23" Margin="272,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+        <Label x:Name="rcmStatusLabel" Content="RCM Status:" Grid.Column="1" HorizontalAlignment="Left" Margin="10,453,0,0" VerticalAlignment="Top" Width="107"/>
+        <TextBox x:Name="rcmStatusText" Grid.Column="1" HorizontalAlignment="Left" Height="210" Margin="10,479,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"/>
 
     </Grid>
 </Window>

@@ -26,15 +26,7 @@ namespace OEHP_WPF_Rework
         {
             InitializeComponent();
 
-            tccCombo.Visibility = Visibility.Hidden;
-            tccLabel.Visibility = Visibility.Hidden;
-
-            DataContext = DBService.ReadFile(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, System.IO.Path.Combine("Logging", "db.dat")).ToString());
-
-            transactionTypeCollection.Clear();
-            transactionTypeCollection.Add("CREDIT_CARD");
-            transactionTypeCollection.Add("ACH");
-            transactionTypeCombo.ItemsSource = transactionTypeCollection;
+            
         }
         //Collections
         public ObservableCollection<string> chargeTypeCollection = new ObservableCollection<string>();
@@ -109,7 +101,17 @@ namespace OEHP_WPF_Rework
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //To Implement... Ugh
+            tccCombo.Visibility = Visibility.Hidden;
+            tccLabel.Visibility = Visibility.Hidden;
+
+            accountTokenText.Text = VariableHandler.AccountToken;
+
+            DataContext = DBService.ReadFile(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, System.IO.Path.Combine("Logging", "db.dat")).ToString());
+
+            transactionTypeCollection.Clear();
+            transactionTypeCollection.Add("CREDIT_CARD");
+            transactionTypeCollection.Add("ACH");
+            transactionTypeCombo.ItemsSource = transactionTypeCollection;
         }
 
         private void submitButton_Click(object sender, RoutedEventArgs e)

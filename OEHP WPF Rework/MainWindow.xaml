@@ -47,7 +47,8 @@
         <TextBox x:Name="approvalCodeText" HorizontalAlignment="Left" Height="23" Margin="272,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
         <Label x:Name="rcmStatusLabel" Content="RCM Status:" Grid.Column="1" HorizontalAlignment="Left" Margin="10,453,0,0" VerticalAlignment="Top" Width="107"/>
         <TextBox x:Name="rcmStatusText" Grid.Column="1" HorizontalAlignment="Left" Height="210" Margin="10,479,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"/>
-        <Button x:Name="mpdTransactions" Content="MPD Transactions" HorizontalAlignment="Left" Margin="569,24,0,0" VerticalAlignment="Top" Width="268" Click="mpdTransactions_Click"/>
+        <Button x:Name="mpdTransactions" Content="MPD Transactions" HorizontalAlignment="Left" Margin="701,24,0,0" VerticalAlignment="Top" Width="136" Click="mpdTransactions_Click"/>
+        <Button x:Name="saveSettings" Content="Save Settings" HorizontalAlignment="Left" Margin="569,24,0,0" VerticalAlignment="Top" Width="127" Click="saveSettings_Click"/>
 
     </Grid>
 </Window>

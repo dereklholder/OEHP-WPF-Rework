@@ -20,6 +20,8 @@ using System.Text.RegularExpressions;
 using System.Collections.Specialized;
 using HtmlAgilityPack;
 using System.Net;
+using Org.BouncyCastle.Crypto.Engines;
+using Org.BouncyCastle.Crypto.Paddings;
 
 namespace OEHP_WPF_Rework
 {
@@ -28,6 +30,9 @@ namespace OEHP_WPF_Rework
     /// </summary>
     public partial class MainWindow : Window
     {
+        Encoding _encoding;
+        IBlockCipherPadding _padding;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,6 +41,19 @@ namespace OEHP_WPF_Rework
             transactionTypeCollection.Add("ACH");
             transactionTypeCollection.Add("INTERAC");
             this.transactionTypeCombo.ItemsSource = transactionTypeCollection;
+
+            _encoding = Encoding.ASCII;
+            Pkcs7Padding pkcs = new Pkcs7Padding();
+            _padding = pkcs;
+
+            var settingsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.dat").ToString();
+            string data = File.ReadAllText(settingsPath);
+            string decryptedData = AESDecryption(data, VariableHandler.CryptoKey, true);
+            var parts = decryptedData.Split(',');
+            VariableHandler.AccountToken = parts[0];
+            customParamText.Text = parts[1];
+
+            accountTokenText.Text = VariableHandler.AccountToken;
         }
         public void writeToLog(string logString) //Code for logging functions.
         {
@@ -823,6 +841,31 @@ namespace OEHP_WPF_Rework
             MPDTransactions m = new MPDTransactions();
             m.Show();
             this.Close();
+        }
+
+        public string AESEncryption(string plain, string key, bool fips) //Encryption for Settings.DAT
+        {
+            Crypto superSecret = new Crypto(new AesEngine(), _encoding);
+            superSecret.SetPadding(_padding);
+            return superSecret.Encrypt(plain, key);
+
+        }
+
+        public string AESDecryption(string cipher, string key, bool fips) //Decryption for Settings.DAT
+        {
+            Crypto superSecret = new Crypto(new AesEngine(), _encoding);
+            superSecret.SetPadding(_padding);
+            return superSecret.Decrypt(cipher, key);
+        }
+
+        private void saveSettings_Click(object sender, RoutedEventArgs e)
+        {
+            string saveToken = accountTokenText.Text;
+            string saveCustom = customParamText.Text;
+            StringBuilder sb = new StringBuilder();
+            sb.Append(saveToken + "," + saveCustom);
+            var settingsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.dat").ToString();
+            File.WriteAllText(settingsPath, AESEncryption(sb.ToString(), VariableHandler.CryptoKey, true));
         }
     }
 }

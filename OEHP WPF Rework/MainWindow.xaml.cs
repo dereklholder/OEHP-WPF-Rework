@@ -16,7 +16,9 @@ using System.Windows.Navigation;
 namespace OEHP_WPF_Rework
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// OEHP .NET demo done with WPF
+    /// Code is for Demonstration/Evaluation purposes only, not intended for Live use
+    /// Created by Derek Holder
     /// </summary>
     public partial class MainWindow : Window
     {

@@ -12,7 +12,7 @@
             <ColumnDefinition Width="403*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="accountTokenLabel" Content="Account Token:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="24" Margin="11,0,0,0" Width="89"/>
-        <ComboBox x:Name="transactionTypeCombo" HorizontalAlignment="Left" Margin="11,76,0,0" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="transactionTypeCombo_SelectionChanged"/>
+        <ComboBox x:Name="transactionTypeCombo" HorizontalAlignment="Left" Margin="11,76,0,0" VerticalAlignment="Top" Width="129" Height="22" SelectionChanged="transactionTypeCombo_SelectionChanged"/>
         <TextBox x:Name="accountTokenText" HorizontalAlignment="Left" Height="23" Margin="11,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="530" Text="04173F8DCE65520D3580E5FF8555A961CECF249E46B5C2FAEFA04E248CD95FEA9D55BB581758D0591B"/>
         <Label x:Name="amountLabel" Content="Amount:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="29" Margin="399,47,0,0" Width="55"/>
         <Label x:Name="transactionTypeLabel" Content="Transaction Type" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="29" Margin="11,47,0,0" Width="100"/>
@@ -47,6 +47,7 @@
         <TextBox x:Name="approvalCodeText" HorizontalAlignment="Left" Height="23" Margin="272,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
         <Label x:Name="rcmStatusLabel" Content="RCM Status:" Grid.Column="1" HorizontalAlignment="Left" Margin="10,453,0,0" VerticalAlignment="Top" Width="107"/>
         <TextBox x:Name="rcmStatusText" Grid.Column="1" HorizontalAlignment="Left" Height="210" Margin="10,479,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"/>
+        <Button x:Name="mpdTransactions" Content="MPD Transactions" HorizontalAlignment="Left" Margin="569,24,0,0" VerticalAlignment="Top" Width="268" Click="mpdTransactions_Click"/>
 
     </Grid>
 </Window>

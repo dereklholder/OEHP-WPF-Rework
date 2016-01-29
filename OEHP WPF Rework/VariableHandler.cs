@@ -9,5 +9,6 @@ namespace OEHP_WPF_Rework
     public static class VariableHandler
     {
         public static string SSP { get; set; }
+        public static string TCC { get; set; }
     }
 }

@@ -56,134 +56,147 @@ namespace OEHP_WPF_Rework
 
         private void transactionTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (transactionTypeCombo.SelectedItem.ToString())
+
+            try
             {
-                case "CREDIT_CARD":
-                    accountTypeCombo.Visibility = Visibility.Hidden;
-                    accountTypeLabel.Visibility = Visibility.Hidden;
-                    creditTypeCombo.Visibility = Visibility.Hidden;
-                    creditTypeLabel.Visibility = Visibility.Hidden;
-                    sigImage.Visibility = Visibility.Visible;
-                    returnedSignatureLabel.Visibility = Visibility.Visible;
-                    tccCombo.Visibility = Visibility.Hidden;
-                    tccLabel.Visibility = Visibility.Hidden;
-                    approvalCodeLabel.Visibility = Visibility.Hidden;
-                    approvalCodeText.Visibility = Visibility.Hidden;
+                switch (transactionTypeCombo.SelectedItem.ToString())
+                {
+                    case "CREDIT_CARD":
+                        accountTypeCombo.Visibility = Visibility.Hidden;
+                        accountTypeLabel.Visibility = Visibility.Hidden;
+                        creditTypeCombo.Visibility = Visibility.Hidden;
+                        creditTypeLabel.Visibility = Visibility.Hidden;
+                        sigImage.Visibility = Visibility.Visible;
+                        returnedSignatureLabel.Visibility = Visibility.Visible;
+                        tccCombo.Visibility = Visibility.Hidden;
+                        tccLabel.Visibility = Visibility.Hidden;
+                        approvalCodeLabel.Visibility = Visibility.Hidden;
+                        approvalCodeText.Visibility = Visibility.Hidden;
 
-                    entryModeCollection.Clear();
-                    entryModeCollection.Add("EMV");
-                    entryModeCollection.Add("HID");
-                    entryModeCollection.Add("KEYED");
-                    entryModeCombo.ItemsSource = entryModeCollection;
-                    entryModeCombo.SelectedIndex = 0;
+                        entryModeCollection.Clear();
+                        entryModeCollection.Add("EMV");
+                        entryModeCollection.Add("HID");
+                        entryModeCollection.Add("KEYED");
+                        entryModeCombo.ItemsSource = entryModeCollection;
+                        entryModeCombo.SelectedIndex = 0;
 
-                    chargeTypeCollection.Clear();
-                    chargeTypeCollection.Add("SALE");
-                    chargeTypeCollection.Add("CREDIT");
-                    chargeTypeCollection.Add("VOID");
-                    chargeTypeCollection.Add("FORCE_SALE");
-                    chargeTypeCollection.Add("AUTH");
-                    chargeTypeCollection.Add("CAPTURE");
-                    chargeTypeCollection.Add("ADJUSTMENT");
-                    chargeTypeCollection.Add("SIGNATURE");
-                    chargeTypeCombo.ItemsSource = chargeTypeCollection;
-                    chargeTypeCombo.SelectedIndex = 0;
+                        chargeTypeCollection.Clear();
+                        chargeTypeCollection.Add("SALE");
+                        chargeTypeCollection.Add("CREDIT");
+                        chargeTypeCollection.Add("VOID");
+                        chargeTypeCollection.Add("FORCE_SALE");
+                        chargeTypeCollection.Add("AUTH");
+                        chargeTypeCollection.Add("CAPTURE");
+                        chargeTypeCollection.Add("ADJUSTMENT");
+                        chargeTypeCollection.Add("SIGNATURE");
+                        chargeTypeCombo.ItemsSource = chargeTypeCollection;
+                        chargeTypeCombo.SelectedIndex = 0;
 
-                    break;
+                        break;
 
-                case "DEBIT_CARD":
-                    accountTypeCombo.Visibility = Visibility.Visible;
-                    accountTypeLabel.Visibility = Visibility.Visible;
-                    creditTypeCombo.Visibility = Visibility.Hidden;
-                    creditTypeLabel.Visibility = Visibility.Hidden;
-                    sigImage.Visibility = Visibility.Hidden;
-                    returnedSignatureLabel.Visibility = Visibility.Hidden;
-                    tccCombo.Visibility = Visibility.Hidden;
-                    tccLabel.Visibility = Visibility.Hidden;
-                    approvalCodeLabel.Visibility = Visibility.Hidden;
-                    approvalCodeText.Visibility = Visibility.Hidden;
+                    case "DEBIT_CARD":
+                        accountTypeCombo.Visibility = Visibility.Visible;
+                        accountTypeLabel.Visibility = Visibility.Visible;
+                        creditTypeCombo.Visibility = Visibility.Hidden;
+                        creditTypeLabel.Visibility = Visibility.Hidden;
+                        sigImage.Visibility = Visibility.Hidden;
+                        returnedSignatureLabel.Visibility = Visibility.Hidden;
+                        tccCombo.Visibility = Visibility.Hidden;
+                        tccLabel.Visibility = Visibility.Hidden;
+                        approvalCodeLabel.Visibility = Visibility.Hidden;
+                        approvalCodeText.Visibility = Visibility.Hidden;
 
-                    entryModeCollection.Clear();
-                    entryModeCollection.Add("EMV");
-                    entryModeCollection.Add("HID");
-                    entryModeCombo.ItemsSource = entryModeCollection;
-                    entryModeCombo.SelectedIndex = 0;
+                        entryModeCollection.Clear();
+                        entryModeCollection.Add("EMV");
+                        entryModeCollection.Add("HID");
+                        entryModeCombo.ItemsSource = entryModeCollection;
+                        entryModeCombo.SelectedIndex = 0;
 
-                    chargeTypeCollection.Clear();
-                    chargeTypeCollection.Add("PURCHASE");
-                    chargeTypeCollection.Add("REFUND");
-                    chargeTypeCombo.ItemsSource = chargeTypeCollection;
-                    chargeTypeCombo.SelectedIndex = 0;
+                        chargeTypeCollection.Clear();
+                        chargeTypeCollection.Add("PURCHASE");
+                        chargeTypeCollection.Add("REFUND");
+                        chargeTypeCombo.ItemsSource = chargeTypeCollection;
+                        chargeTypeCombo.SelectedIndex = 0;
 
-                    break;
+                        break;
 
-                case "ACH":
-                    accountTypeCombo.Visibility = Visibility.Hidden;
-                    accountTypeLabel.Visibility = Visibility.Hidden;
-                    creditTypeCombo.Visibility = Visibility.Hidden;
-                    creditTypeLabel.Visibility = Visibility.Hidden;
-                    sigImage.Visibility = Visibility.Hidden;
-                    returnedSignatureLabel.Visibility = Visibility.Hidden;
-                    tccCombo.Visibility = Visibility.Visible;
-                    tccLabel.Visibility = Visibility.Visible;
-                    approvalCodeLabel.Visibility = Visibility.Hidden;
-                    approvalCodeText.Visibility = Visibility.Hidden;
+                    case "ACH":
+                        accountTypeCombo.Visibility = Visibility.Hidden;
+                        accountTypeLabel.Visibility = Visibility.Hidden;
+                        creditTypeCombo.Visibility = Visibility.Hidden;
+                        creditTypeLabel.Visibility = Visibility.Hidden;
+                        sigImage.Visibility = Visibility.Hidden;
+                        returnedSignatureLabel.Visibility = Visibility.Hidden;
+                        tccCombo.Visibility = Visibility.Visible;
+                        tccLabel.Visibility = Visibility.Visible;
+                        approvalCodeLabel.Visibility = Visibility.Hidden;
+                        approvalCodeText.Visibility = Visibility.Hidden;
 
-                    entryModeCollection.Clear();
-                    entryModeCollection.Add("KEYED");
-                    entryModeCombo.ItemsSource = entryModeCollection;
-                    entryModeCombo.SelectedIndex = 0;
+                        entryModeCollection.Clear();
+                        entryModeCollection.Add("KEYED");
+                        entryModeCombo.ItemsSource = entryModeCollection;
+                        entryModeCombo.SelectedIndex = 0;
 
-                    chargeTypeCollection.Clear();
-                    chargeTypeCollection.Add("DEBIT");
-                    chargeTypeCollection.Add("CREDIT");
-                    chargeTypeCombo.ItemsSource = chargeTypeCollection;
-                    chargeTypeCombo.SelectedIndex = 0;
+                        chargeTypeCollection.Clear();
+                        chargeTypeCollection.Add("DEBIT");
+                        chargeTypeCollection.Add("CREDIT");
+                        chargeTypeCombo.ItemsSource = chargeTypeCollection;
+                        chargeTypeCombo.SelectedIndex = 0;
 
-                    tccCollection.Clear();
-                    tccCollection.Add("PPD");
-                    tccCollection.Add("CCD");
-                    tccCollection.Add("WEB");
-                    tccCollection.Add("TEL");
-                    tccCombo.ItemsSource = tccCollection;
+                        tccCollection.Clear();
+                        tccCollection.Add("PPD");
+                        tccCollection.Add("CCD");
+                        tccCollection.Add("WEB");
+                        tccCollection.Add("TEL");
+                        tccCombo.ItemsSource = tccCollection;
 
-                    break;
+                        break;
 
-                case "INTERAC":
-                    accountTypeCombo.Visibility = Visibility.Hidden;
-                    accountTypeLabel.Visibility = Visibility.Hidden;
-                    creditTypeCombo.Visibility = Visibility.Hidden;
-                    creditTypeLabel.Visibility = Visibility.Hidden;
-                    sigImage.Visibility = Visibility.Hidden;
-                    returnedSignatureLabel.Visibility = Visibility.Hidden;
-                    tccCombo.Visibility = Visibility.Hidden;
-                    tccLabel.Visibility = Visibility.Hidden;
-                    approvalCodeLabel.Visibility = Visibility.Hidden;
-                    approvalCodeText.Visibility = Visibility.Hidden;
+                    case "INTERAC":
+                        accountTypeCombo.Visibility = Visibility.Hidden;
+                        accountTypeLabel.Visibility = Visibility.Hidden;
+                        creditTypeCombo.Visibility = Visibility.Hidden;
+                        creditTypeLabel.Visibility = Visibility.Hidden;
+                        sigImage.Visibility = Visibility.Hidden;
+                        returnedSignatureLabel.Visibility = Visibility.Hidden;
+                        tccCombo.Visibility = Visibility.Hidden;
+                        tccLabel.Visibility = Visibility.Hidden;
+                        approvalCodeLabel.Visibility = Visibility.Hidden;
+                        approvalCodeText.Visibility = Visibility.Hidden;
 
-                    entryModeCollection.Clear();
-                    entryModeCollection.Add("EMV");
-                    entryModeCollection.Add("HID");
-                    entryModeCombo.ItemsSource = entryModeCollection;
-                    entryModeCombo.SelectedIndex = 0;
+                        entryModeCollection.Clear();
+                        entryModeCollection.Add("EMV");
+                        entryModeCollection.Add("HID");
+                        entryModeCombo.ItemsSource = entryModeCollection;
+                        entryModeCombo.SelectedIndex = 0;
 
-                    chargeTypeCollection.Clear();
-                    chargeTypeCollection.Add("PURCHASE");
-                    chargeTypeCollection.Add("REFUND");
-                    chargeTypeCombo.ItemsSource = chargeTypeCollection;
-                    chargeTypeCombo.SelectedIndex = 0;
+                        chargeTypeCollection.Clear();
+                        chargeTypeCollection.Add("PURCHASE");
+                        chargeTypeCollection.Add("REFUND");
+                        chargeTypeCombo.ItemsSource = chargeTypeCollection;
+                        chargeTypeCombo.SelectedIndex = 0;
 
-                    break;
+                        break;
 
-                default:
-                    MessageBox.Show("Invalid Transaction Type Input");
-                    break;
+                    default:
+                        MessageBox.Show("Invalid Transaction Type Input");
+                        break;
+
+                }
+            }
+            catch (System.NullReferenceException ex)
+            {
+                
+            }
+            catch (Exception ex)
+            {
 
             }
         }
 
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
+            VariableHandler.SSP = null; //Sets the OTK storage to NULL, used for RCM Status and perhaps further implementations
             string parameters;
             string otk;
 
@@ -487,23 +500,23 @@ namespace OEHP_WPF_Rework
             switch (tccCombo.SelectedItem.ToString())
             {
                 case "PPD":
-                    TCC = "50";
+                    VariableHandler.TCC = "50";
                     break;
 
                 case "TEL":
-                    TCC = "51";
+                    VariableHandler.TCC = "51";
                     break;
 
                 case "WEB":
-                    TCC = "52";
+                    VariableHandler.TCC = "52";
                     break;
 
                 case "CCD":
-                    TCC = "53";
+                    VariableHandler.TCC = "53";
                     break;
 
                 default:
-                    TCC = null;
+                    VariableHandler.TCC = null;
                     break;
             }
         }
@@ -803,6 +816,13 @@ namespace OEHP_WPF_Rework
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void mpdTransactions_Click(object sender, RoutedEventArgs e)
+        {
+            MPDTransactions m = new MPDTransactions();
+            m.Show();
+            this.Close();
         }
     }
 }

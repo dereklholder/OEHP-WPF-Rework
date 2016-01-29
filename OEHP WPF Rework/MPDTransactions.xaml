@@ -1,0 +1,41 @@
+﻿<Window x:Class="OEHP_WPF_Rework.MPDTransactions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OEHP_WPF_Rework"
+        mc:Ignorable="d"
+        Title="MPDTransactions" Height="730" Width="1130" Loaded="Window_Loaded" Icon="oehpwpf.ico">
+    <Grid Margin="0,0,2,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="43*"/>
+            <ColumnDefinition Width="1077*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="standardTransactions" Content="Standard Transactions" HorizontalAlignment="Left" VerticalAlignment="Top" Width="154" Margin="10,10,0,0" Height="22" Grid.ColumnSpan="2" Click="standardTransactions_Click"/>
+        <TextBox x:Name="accountTokenText" HorizontalAlignment="Left" Height="23" Margin="10,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="447" Grid.ColumnSpan="2" Text="04173F8DCE65520D3580E5FF8555A961CECF249E46B5C2FAEFA04E248CD95FEA9D55BB581758D0591B"/>
+        <Label x:Name="label" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label x:Name="accountTokenLabel" Content="Account Token:" HorizontalAlignment="Left" Margin="10,0,0,637" VerticalAlignment="Bottom" RenderTransformOrigin="3.921,-3.423" Grid.ColumnSpan="2" Width="98"/>
+        <Label x:Name="orderIDLabel" Content="Order ID" Grid.Column="1" HorizontalAlignment="Left" Margin="421,0,0,640" VerticalAlignment="Bottom" RenderTransformOrigin="-1.605,0.846"/>
+        <TextBox x:Name="orderIDText" HorizontalAlignment="Left" Height="23" Margin="421,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" Grid.Column="1" IsReadOnly="True"/>
+        <Label x:Name="transactionTypeLabel" Content="Transaction Type:" HorizontalAlignment="Left" Margin="10,0,0,588" VerticalAlignment="Bottom" RenderTransformOrigin="-1.605,0.846" Grid.ColumnSpan="2"/>
+        <Label x:Name="chargeTypeLabel" Content="Charge Type:" Grid.Column="1" HorizontalAlignment="Left" Margin="126,0,0,588" VerticalAlignment="Bottom" RenderTransformOrigin="-1.605,0.846"/>
+        <Label x:Name="tccLabel" Content="Transaction Condition Code:" Grid.Column="1" HorizontalAlignment="Left" Margin="268,0,0,588" VerticalAlignment="Bottom" RenderTransformOrigin="-1.605,0.846"/>
+        <Label x:Name="orderIDLabel_Copy3" Grid.Column="1" HorizontalAlignment="Left" Margin="607,0,0,532" VerticalAlignment="Bottom" RenderTransformOrigin="-1.605,0.846"/>
+        <Label x:Name="payerIDLabel" Content="Payer Identifier:" HorizontalAlignment="Left" VerticalAlignment="Bottom" RenderTransformOrigin="-1.605,0.846" Margin="10,0,0,534" Grid.ColumnSpan="2"/>
+        <Label x:Name="spanLabel" Content="SPAN" HorizontalAlignment="Left" VerticalAlignment="Bottom" RenderTransformOrigin="-1.605,0.846" Margin="92,0,0,534" Grid.Column="1"/>
+        <Label x:Name="postParametersLabel" Content="Post Parameters:" HorizontalAlignment="Left" VerticalAlignment="Bottom" RenderTransformOrigin="-1.605,0.846" Margin="561,0,0,660" Grid.Column="1"/>
+        <Label x:Name="transactionHistoryLabel" Content="Transaction History:" HorizontalAlignment="Left" VerticalAlignment="Bottom" RenderTransformOrigin="-1.605,0.846" Margin="561,0,0,474" Grid.Column="1"/>
+        <Label x:Name="amoubtLabel" Content="Amount:" HorizontalAlignment="Left" VerticalAlignment="Bottom" RenderTransformOrigin="-1.605,0.846" Margin="433,0,0,588" Grid.Column="1"/>
+        <TextBox x:Name="postParametersText" HorizontalAlignment="Left" Height="159" TextWrapping="Wrap" VerticalAlignment="Top" Width="505" RenderTransformOrigin="7.733,3.826" Grid.Column="1" Margin="562,36,0,0"/>
+        <ComboBox x:Name="transactionTypeCombo" HorizontalAlignment="Left" Margin="10,112,0,0" VerticalAlignment="Top" Width="154" Grid.ColumnSpan="2" SelectionChanged="transactionTypeCombo_SelectionChanged"/>
+        <ComboBox x:Name="chargeTypeCombo" Grid.Column="1" HorizontalAlignment="Left" Margin="126,112,0,0" VerticalAlignment="Top" Width="137" RenderTransformOrigin="0.125,-2.773"/>
+        <ComboBox x:Name="tccCombo" Grid.Column="1" HorizontalAlignment="Left" Margin="268,112,0,0" VerticalAlignment="Top" Width="160" SelectionChanged="tccCombo_SelectionChanged"/>
+        <TextBox x:Name="amountText" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="433,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="124"/>
+        <TextBox x:Name="payerIDText" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="23" Margin="10,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="spanText" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="92,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.425,-2.739"/>
+        <WebBrowser x:Name="hostPayBrowser" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="464" VerticalAlignment="Top" Width="589" Margin="10,226,0,0" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" LoadCompleted="hostPayBrowser_LoadCompleted"/>
+        <Button x:Name="submitButton" Grid.ColumnSpan="2" Content="Submit" HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top" Width="75" Click="submitButton_Click"/>
+        <DataGrid x:Name="dataGrid" Grid.Column="1" HorizontalAlignment="Left" Margin="562,226,0,0" VerticalAlignment="Top" Height="464" Width="505" AutoGenerateColumns="True" ItemsSource="{Binding}"/>
+
+    </Grid>
+</Window>

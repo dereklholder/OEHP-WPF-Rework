@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OEHP_WPF_Rework
+﻿namespace OEHP_WPF_Rework
 {
     public static class VariableHandler
     {

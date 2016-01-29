@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Net;
+﻿using Newtonsoft.Json; // Utilizes JSON.NET for parsing response from the gateway.
+
+using System;
 using System.IO;
+using System.Net;
+using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Configuration;
-using System.Reflection.Emit;
-using System.Web;
-using Newtonsoft.Json; // Utilizes JSON.NET for parsing response from the gateway.
 /// <summary>
 /// General Methods for generating Parameters and sending POSTs to the gateway.
 /// Old code Commented and left for reference.

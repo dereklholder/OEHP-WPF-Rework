@@ -1,27 +1,17 @@
-﻿using System;
-using System.Web;
-using System.Data;
-using System.Collections.Generic;
+﻿using Org.BouncyCastle.Crypto.Engines;
+using Org.BouncyCastle.Crypto.Paddings;
+
+using System;
 using System.Collections.ObjectModel;
-using System.Linq;
+using System.Collections.Specialized;
+using System.IO;
+using System.Net;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using System.Web;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Collections.Specialized;
-using HtmlAgilityPack;
-using System.Net;
-using Org.BouncyCastle.Crypto.Engines;
-using Org.BouncyCastle.Crypto.Paddings;
 
 namespace OEHP_WPF_Rework
 {
@@ -619,17 +609,25 @@ namespace OEHP_WPF_Rework
             }
 
             //RCM Status Code, Will fire after every DocCompleted event.
-            string ssp = VariableHandler.SSP;
-            WebRequest wr = WebRequest.Create("https://ws.test.paygateway.com/HostPayService/v1/hostpay/transactions/status/" + ssp);
-            wr.Method = "GET";
 
-            Stream objStream;
-            objStream = wr.GetResponse().GetResponseStream();
+            try
+            {
+                string ssp = VariableHandler.SSP;
+                WebRequest wr = WebRequest.Create("https://ws.test.paygateway.com/HostPayService/v1/hostpay/transactions/status/" + ssp);
+                wr.Method = "GET";
 
-            StreamReader sr = new StreamReader(objStream);
+                Stream objStream;
+                objStream = wr.GetResponse().GetResponseStream();
 
-            string rcmStatus = sr.ReadToEnd();
-            rcmStatusText.Text = rcmStatus;
+                StreamReader sr = new StreamReader(objStream);
+
+                string rcmStatus = sr.ReadToEnd();
+                rcmStatusText.Text = rcmStatus;
+            }
+            catch (Exception ex)
+            {
+                writeToLog(ex.ToString());
+            }
 
 
         }

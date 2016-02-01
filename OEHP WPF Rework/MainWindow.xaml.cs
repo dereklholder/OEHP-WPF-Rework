@@ -408,7 +408,7 @@ namespace OEHP_WPF_Rework
 
                                 case "INDEPENDENT":
                                     parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
-                                        entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParamText.Text);
+                                        entryModeCombo.Text, orderIDText.Text, amountText.Text, VariableHandler.TCC, customParamText.Text);
                                     postParametersText.Text = parameters;
                                     writeToLog(parameters);
 
@@ -425,7 +425,7 @@ namespace OEHP_WPF_Rework
                         case "DEBIT":
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
                             parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
-                                entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParamText.Text);
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, VariableHandler.TCC, customParamText.Text);
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
@@ -548,7 +548,7 @@ namespace OEHP_WPF_Rework
             //Performs Query on Every Doc Completed, if it sees the response_code=1 then it it displays the query result. Better implementation to come.
 
             string parameters;
-            string finishedResponse = @"^(.*?(\b&response_code=1\b)[^$]*)$";
+            string finishedResponse = @"^(.*?(\bresponse_code=1\b)[^$]*)$";
             string queryResult;
             bool performQuery;
             

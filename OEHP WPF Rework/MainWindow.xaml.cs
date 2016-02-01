@@ -31,7 +31,8 @@ namespace OEHP_WPF_Rework
             transactionTypeCollection.Add("CREDIT_CARD");
             transactionTypeCollection.Add("DEBIT_CARD");
             transactionTypeCollection.Add("ACH");
-            transactionTypeCollection.Add("INTERAC");
+            transactionTypeCollection.Add("INTERAC"); 
+
             this.transactionTypeCombo.ItemsSource = transactionTypeCollection;
 
             _encoding = Encoding.ASCII;
@@ -63,7 +64,7 @@ namespace OEHP_WPF_Rework
         public ObservableCollection<string> accountTypeCollection = new ObservableCollection<string>();
         public ObservableCollection<string> tccCollection = new ObservableCollection<string>();
 
-
+        //Sets available Fields based on Transaction Type Suggested
         private void transactionTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -88,7 +89,6 @@ namespace OEHP_WPF_Rework
                         entryModeCollection.Add("HID");
                         entryModeCollection.Add("KEYED");
                         entryModeCombo.ItemsSource = entryModeCollection;
-                        entryModeCombo.SelectedIndex = 0;
 
                         chargeTypeCollection.Clear();
                         chargeTypeCollection.Add("SALE");
@@ -100,7 +100,6 @@ namespace OEHP_WPF_Rework
                         chargeTypeCollection.Add("ADJUSTMENT");
                         chargeTypeCollection.Add("SIGNATURE");
                         chargeTypeCombo.ItemsSource = chargeTypeCollection;
-                        chargeTypeCombo.SelectedIndex = 0;
 
                         break;
 
@@ -120,13 +119,11 @@ namespace OEHP_WPF_Rework
                         entryModeCollection.Add("EMV");
                         entryModeCollection.Add("HID");
                         entryModeCombo.ItemsSource = entryModeCollection;
-                        entryModeCombo.SelectedIndex = 0;
 
                         chargeTypeCollection.Clear();
                         chargeTypeCollection.Add("PURCHASE");
                         chargeTypeCollection.Add("REFUND");
                         chargeTypeCombo.ItemsSource = chargeTypeCollection;
-                        chargeTypeCombo.SelectedIndex = 0;
 
                         break;
 
@@ -145,13 +142,11 @@ namespace OEHP_WPF_Rework
                         entryModeCollection.Clear();
                         entryModeCollection.Add("KEYED");
                         entryModeCombo.ItemsSource = entryModeCollection;
-                        entryModeCombo.SelectedIndex = 0;
 
                         chargeTypeCollection.Clear();
                         chargeTypeCollection.Add("DEBIT");
                         chargeTypeCollection.Add("CREDIT");
                         chargeTypeCombo.ItemsSource = chargeTypeCollection;
-                        chargeTypeCombo.SelectedIndex = 0;
 
                         tccCollection.Clear();
                         tccCollection.Add("PPD");
@@ -178,13 +173,11 @@ namespace OEHP_WPF_Rework
                         entryModeCollection.Add("EMV");
                         entryModeCollection.Add("HID");
                         entryModeCombo.ItemsSource = entryModeCollection;
-                        entryModeCombo.SelectedIndex = 0;
 
                         chargeTypeCollection.Clear();
                         chargeTypeCollection.Add("PURCHASE");
                         chargeTypeCollection.Add("REFUND");
                         chargeTypeCombo.ItemsSource = chargeTypeCollection;
-                        chargeTypeCombo.SelectedIndex = 0;
 
                         break;
 
@@ -204,6 +197,7 @@ namespace OEHP_WPF_Rework
             }
         }
 
+        //Submit Button Logic for various transaction types.
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
             VariableHandler.SSP = null; //Sets the OTK storage to NULL, used for RCM Status and perhaps further implementations
@@ -216,6 +210,8 @@ namespace OEHP_WPF_Rework
                     switch (chargeTypeCombo.Text)
                     {
                         case "SALE":
+                            //Randomizes the Order, sends Settings over to the ParamBuilder, Then Sends a request to get the OtK  (sealedSetup Parameters) and then
+                            // Apends to the PayPage URL to render the page.
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
                             parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
                                 entryModeCombo.Text, orderIDText.Text, amountText.Text, customParamText.Text);
@@ -453,21 +449,31 @@ namespace OEHP_WPF_Rework
 
         private void chargeTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (chargeTypeCombo.SelectedItem.ToString())
+            string chargeTypeNow = chargeTypeCombo.SelectedItem.ToString();
+            switch (chargeTypeNow)
             {
                 case "CREDIT":
                     approvalCodeLabel.Visibility = Visibility.Hidden;
                     approvalCodeText.Visibility = Visibility.Hidden;
-                    switch (transactionTypeCombo.Text)
+                    switch (transactionTypeCombo.SelectedItem.ToString())
                     {
                         case "CREDIT_CARD":
                             creditTypeCombo.Visibility = Visibility.Visible;
                             creditTypeLabel.Visibility = Visibility.Visible;
+
+                            creditTypeCollection.Clear();
+                            creditTypeCollection.Add("INDEPENDENT");
+                            creditTypeCollection.Add("DEPENDENT");
+                            creditTypeCombo.ItemsSource = creditTypeCollection;
+
+
                             break;
 
                         default:
                             creditTypeCombo.Visibility = Visibility.Hidden;
                             creditTypeLabel.Visibility = Visibility.Hidden;
+
+
                             break;
 
                     }
@@ -866,6 +872,28 @@ namespace OEHP_WPF_Rework
             sb.Append(saveToken + "," + saveCustom);
             var settingsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.dat").ToString();
             File.WriteAllText(settingsPath, AESEncryption(sb.ToString(), VariableHandler.CryptoKey, true));
+        }
+
+        private void mainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            creditTypeCombo.Visibility = Visibility.Hidden;
+            creditTypeLabel.Visibility = Visibility.Hidden;
+        }
+
+        private void creditTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (creditTypeCombo.SelectedItem.ToString())
+            {
+                case "INDEPENDENT":
+                    orderIDText.IsReadOnly = false;
+                    break;
+                case "DEPENDENT":
+                    orderIDText.IsReadOnly = true;
+                    break;
+                default:
+                    break;
+
+            }
         }
     }
 }

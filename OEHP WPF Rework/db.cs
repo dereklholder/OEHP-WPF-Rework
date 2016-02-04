@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+/// <summary>
+/// Database Functions for Transaction Database.
+/// </summary>
 
 namespace OEHP_WPF_Rework
 {

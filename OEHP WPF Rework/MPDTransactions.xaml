@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OEHP_WPF_Rework"
         mc:Ignorable="d"
-        Title="MPDTransactions" Height="730" Width="1130" Loaded="Window_Loaded" Icon="oehpwpf.ico">
+        Title="OpenEdge HostPay WPF .NET demo" Height="730" Width="1130" Loaded="Window_Loaded" Icon="oehpwpf.ico">
     <Grid Margin="0,0,2,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="43*"/>

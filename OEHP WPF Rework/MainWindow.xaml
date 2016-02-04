@@ -9,47 +9,51 @@
     <Grid Margin="0,0,-128,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="73*"/>
-            <ColumnDefinition Width="774*"/>
-            <ColumnDefinition Width="403*"/>
+            <ColumnDefinition Width="777*"/>
+            <ColumnDefinition Width="400*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="accountTokenLabel" Content="Account Token:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="24" Margin="11,0,0,0" Width="89" Grid.ColumnSpan="2"/>
         <ComboBox x:Name="transactionTypeCombo" HorizontalAlignment="Left" Margin="11,76,0,0" VerticalAlignment="Top" Width="129" Height="22" SelectionChanged="transactionTypeCombo_SelectionChanged" Grid.ColumnSpan="2"/>
         <TextBox x:Name="accountTokenText" HorizontalAlignment="Left" Height="23" Margin="11,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="530" Text="04173F8DCE65520D3580E5FF8555A961CECF249E46B5C2FAEFA04E248CD95FEA9D55BB581758D0591B" Grid.ColumnSpan="2"/>
-        <Label x:Name="amountLabel" Content="Amount:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="29" Margin="326.494,47,0,0" Width="55" Grid.Column="1"/>
+        <Label x:Name="amountLabel" Content="Amount:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="29" Margin="326,47,0,0" Width="55" Grid.Column="1"/>
         <Label x:Name="transactionTypeLabel" Content="Transaction Type" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="29" Margin="11,47,0,0" Width="100" Grid.ColumnSpan="2"/>
-        <Label x:Name="entryModeLabel" Content="Entry Mode:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="29" Margin="72.494,47,0,0" Width="74" Grid.Column="1"/>
-        <Label x:Name="chargeTypeLabel" Content="Charge Type:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="29" Margin="199.494,47,0,0" Width="79" Grid.Column="1"/>
-        <Label x:Name="orderIDLabel" Content="Order ID:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="29" Margin="496.494,47,0,0" Width="58" Grid.Column="1"/>
-        <ComboBox x:Name="entryModeCombo" HorizontalAlignment="Left" Margin="74.494,76,0,0" VerticalAlignment="Top" Width="120" Height="22" Grid.Column="1"/>
-        <ComboBox x:Name="chargeTypeCombo" HorizontalAlignment="Left" Margin="199.494,76,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="2.568,0.902" Height="22" SelectionChanged="chargeTypeCombo_SelectionChanged" Grid.Column="1"/>
-        <TextBox x:Name="amountText" HorizontalAlignment="Left" Height="23" Margin="329.494,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="162" Grid.Column="1"/>
-        <TextBox x:Name="orderIDText" HorizontalAlignment="Left" Height="23" Margin="496.494,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278" IsReadOnly="True" Grid.Column="1"/>
+        <Label x:Name="entryModeLabel" Content="Entry Mode:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="29" Margin="72,47,0,0" Width="74" Grid.Column="1"/>
+        <Label x:Name="chargeTypeLabel" Content="Charge Type:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="29" Margin="199,47,0,0" Width="79" Grid.Column="1"/>
+        <Label x:Name="orderIDLabel" Content="Order ID:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="29" Margin="496,47,0,0" Width="58" Grid.Column="1"/>
+        <ComboBox x:Name="entryModeCombo" HorizontalAlignment="Left" Margin="74,76,0,0" VerticalAlignment="Top" Width="120" Height="22" Grid.Column="1"/>
+        <ComboBox x:Name="chargeTypeCombo" HorizontalAlignment="Left" Margin="199,76,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="2.568,0.902" Height="22" SelectionChanged="chargeTypeCombo_SelectionChanged" Grid.Column="1"/>
+        <TextBox x:Name="amountText" HorizontalAlignment="Left" Height="23" Margin="329,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="162" Grid.Column="1" 
+                 Text="{Binding amount, 
+                           StringFormat='#.##',
+                            UpdateSourceTrigger=PropertyChanged
+            }"/>
+        <TextBox x:Name="orderIDText" HorizontalAlignment="Left" Height="23" Margin="496,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278" IsReadOnly="True" Grid.Column="1"/>
         <Label x:Name="accountTypeLabel" Content="Account Type:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="24" Margin="11,98,0,0" Width="100" Visibility="Hidden" Grid.ColumnSpan="2"/>
-        <Label x:Name="tccLabel" Content="Transaction Condition Code:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="24" Margin="324.494,98,0,0" Width="162" Visibility="Hidden" Grid.Column="1"/>
-        <Label x:Name="creditTypeLabel" Content="Credit Type:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="24" Margin="199.494,98,0,0" Width="79" Visibility="Visible" Grid.Column="1"/>
+        <Label x:Name="tccLabel" Content="Transaction Condition Code:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="24" Margin="324,98,0,0" Width="162" Visibility="Hidden" Grid.Column="1"/>
+        <Label x:Name="creditTypeLabel" Content="Credit Type:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="24" Margin="199,98,0,0" Width="79" Visibility="Visible" Grid.Column="1"/>
         <ComboBox x:Name="accountTypeCombo" HorizontalAlignment="Left" Margin="11,122,0,0" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="transactionTypeCombo_SelectionChanged" Visibility="Hidden" Grid.ColumnSpan="2"/>
-        <ComboBox x:Name="creditTypeCombo" HorizontalAlignment="Left" Margin="199.494,122,0,0" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="creditTypeCombo_SelectionChanged" Visibility="Visible" Grid.Column="1"/>
-        <ComboBox x:Name="tccCombo" HorizontalAlignment="Left" Margin="326.494,122,0,0" VerticalAlignment="Top" Width="160" Height="22" SelectionChanged="tccCombo_SelectionChanged" Visibility="Hidden" Grid.Column="1"/>
-        <Label x:Name="customParamLabel" Content="Custom Parameters:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="26" Margin="496.494,98,0,0" Width="162" Grid.Column="1"/>
-        <TextBox x:Name="customParamText" HorizontalAlignment="Left" Height="96" Margin="496.494,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
+        <ComboBox x:Name="creditTypeCombo" HorizontalAlignment="Left" Margin="199,122,0,0" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="creditTypeCombo_SelectionChanged" Visibility="Visible" Grid.Column="1"/>
+        <ComboBox x:Name="tccCombo" HorizontalAlignment="Left" Margin="326,122,0,0" VerticalAlignment="Top" Width="160" Height="22" SelectionChanged="tccCombo_SelectionChanged" Visibility="Hidden" Grid.Column="1"/>
+        <Label x:Name="customParamLabel" Content="Custom Parameters:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="26" Margin="496,98,0,0" Width="162" Grid.Column="1"/>
+        <TextBox x:Name="customParamText" HorizontalAlignment="Left" Height="96" Margin="496,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
         <WebBrowser x:Name="hostPayBrowser" HorizontalAlignment="Left" Height="443" Margin="11,246,0,0" VerticalAlignment="Top" Width="550" LoadCompleted="hostPayBrowser_LoadCompleted" Grid.ColumnSpan="2"/>
-        <Button x:Name="submitButton" Content="Submit" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top" Width="75" Click="submitButton_Click" RenderTransformOrigin="0.491,1.039" Grid.ColumnSpan="2"/>
-        <Label x:Name="queryResponseLabel" Content="Query Response:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="28" Margin="496.494,213,0,0" Width="153" Grid.Column="1"/>
-        <Button x:Name="forceQueryButton" Content="Query" HorizontalAlignment="Left" Margin="199.494,215,0,0" VerticalAlignment="Top" Width="75" Click="forceQueryButton_Click" Grid.Column="1"/>
-        <Button x:Name="parseReceipt" Content="Parse Receipt" HorizontalAlignment="Left" Margin="326.494,215,0,0" VerticalAlignment="Top" Width="104" Click="parseReceipt_Click" Grid.Column="1"/>
+        <Button x:Name="submitButton" Content="Submit" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top" Width="75" Click="submitButton_Click" RenderTransformOrigin="0.491,1.039" Grid.ColumnSpan="2" Height="22"/>
+        <Label x:Name="queryResponseLabel" Content="Query Response:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="28" Margin="496,213,0,0" Width="153" Grid.Column="1"/>
+        <Button x:Name="forceQueryButton" Content="Query" HorizontalAlignment="Left" Margin="199,215,0,0" VerticalAlignment="Top" Width="75" Click="forceQueryButton_Click" Grid.Column="1" Height="22"/>
+        <Button x:Name="parseReceipt" Content="Parse Receipt" HorizontalAlignment="Left" Margin="326,215,0,0" VerticalAlignment="Top" Width="104" Click="parseReceipt_Click" Grid.Column="1" Height="22"/>
         <TextBox x:Name="postParametersText" Grid.Column="2" HorizontalAlignment="Left" Height="193" Margin="10,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"/>
         <TextBox x:Name="queryPostText" Grid.Column="2" HorizontalAlignment="Left" Height="202" Margin="10,246,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"/>
-        <Label x:Name="postParametersLabel" Content="Post Parameters:" Grid.Column="2" HorizontalAlignment="Left" Margin="10,-2,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="postParametersLabel_Copy" Content="Query Parameters:" Grid.Column="2" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top"/>
-        <WebBrowser x:Name="queryBrowser" HorizontalAlignment="Left" Height="443" Margin="496.494,246,0,0" VerticalAlignment="Top" Width="278" LoadCompleted="queryBrowser_LoadCompleted" Grid.Column="1"/>
-        <Label x:Name="returnedSignatureLabel" Content="Signature:" HorizontalAlignment="Left" Margin="72.494,98,0,0" VerticalAlignment="Top" Visibility="Hidden" Grid.Column="1"/>
-        <Image x:Name="sigImage" HorizontalAlignment="Left" Height="113" Margin="72.494,124,0,0" VerticalAlignment="Top" Width="120" Visibility="Hidden" Grid.Column="1"/>
-        <Label x:Name="approvalCodeLabel" Content="Charge Type:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="24" Margin="199.494,97,0,0" Width="79" Visibility="Hidden" Grid.Column="1"/>
-        <TextBox x:Name="approvalCodeText" HorizontalAlignment="Left" Height="23" Margin="199.494,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden" Grid.Column="1"/>
-        <Label x:Name="rcmStatusLabel" Content="RCM Status:" Grid.Column="2" HorizontalAlignment="Left" Margin="10,453,0,0" VerticalAlignment="Top" Width="107"/>
+        <Label x:Name="postParametersLabel" Content="Post Parameters:" Grid.Column="2" HorizontalAlignment="Left" Margin="10,-2,0,0" VerticalAlignment="Top" Height="26" Width="98"/>
+        <Label x:Name="postParametersLabel_Copy" Content="Query Parameters:" Grid.Column="2" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top" Height="26" Width="107"/>
+        <WebBrowser x:Name="queryBrowser" HorizontalAlignment="Left" Height="443" Margin="496,246,0,0" VerticalAlignment="Top" Width="278" LoadCompleted="queryBrowser_LoadCompleted" Grid.Column="1"/>
+        <Label x:Name="returnedSignatureLabel" Content="Signature:" HorizontalAlignment="Left" Margin="72,98,0,0" VerticalAlignment="Top" Visibility="Hidden" Grid.Column="1" Height="26" Width="63"/>
+        <Image x:Name="sigImage" HorizontalAlignment="Left" Height="113" Margin="72,124,0,0" VerticalAlignment="Top" Width="120" Visibility="Hidden" Grid.Column="1"/>
+        <Label x:Name="approvalCodeLabel" Content="Charge Type:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="24" Margin="199,97,0,0" Width="79" Visibility="Hidden" Grid.Column="1"/>
+        <TextBox x:Name="approvalCodeText" HorizontalAlignment="Left" Height="23" Margin="199,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden" Grid.Column="1"/>
+        <Label x:Name="rcmStatusLabel" Content="RCM Status:" Grid.Column="2" HorizontalAlignment="Left" Margin="10,453,0,0" VerticalAlignment="Top" Width="107" Height="26"/>
         <TextBox x:Name="rcmStatusText" Grid.Column="2" HorizontalAlignment="Left" Height="210" Margin="10,479,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"/>
-        <Button x:Name="mpdTransactions" Content="MPD Transactions" HorizontalAlignment="Left" Margin="628.494,24,0,0" VerticalAlignment="Top" Width="136" Click="mpdTransactions_Click" Grid.Column="1"/>
-        <Button x:Name="saveSettings" Content="Save Settings" HorizontalAlignment="Left" Margin="496.494,24,0,0" VerticalAlignment="Top" Width="127" Click="saveSettings_Click" Grid.Column="1"/>
+        <Button x:Name="mpdTransactions" Content="MPD Transactions" HorizontalAlignment="Left" Margin="628,24,0,0" VerticalAlignment="Top" Width="136" Click="mpdTransactions_Click" Grid.Column="1" Height="22"/>
+        <Button x:Name="saveSettings" Content="Save Settings" HorizontalAlignment="Left" Margin="496,24,0,0" VerticalAlignment="Top" Width="127" Click="saveSettings_Click" Grid.Column="1" Height="22"/>
 
     </Grid>
 </Window>

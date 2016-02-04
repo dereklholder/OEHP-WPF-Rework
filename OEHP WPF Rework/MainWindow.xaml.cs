@@ -100,7 +100,6 @@ namespace OEHP_WPF_Rework
                         chargeTypeCollection.Add("ADJUSTMENT");
                         chargeTypeCollection.Add("SIGNATURE");
                         chargeTypeCombo.ItemsSource = chargeTypeCollection;
-
                         break;
 
                     case "DEBIT_CARD":
@@ -125,6 +124,11 @@ namespace OEHP_WPF_Rework
                         chargeTypeCollection.Add("REFUND");
                         chargeTypeCombo.ItemsSource = chargeTypeCollection;
 
+                        accountTypeCollection.Clear();
+                        accountTypeCollection.Add("DEFAULT");
+                        accountTypeCollection.Add("CASH_BENEFIT");
+                        accountTypeCollection.Add("FOOD_STAMP");
+                        accountTypeCombo.ItemsSource = accountTypeCollection;
                         break;
 
                     case "ACH":
@@ -154,7 +158,6 @@ namespace OEHP_WPF_Rework
                         tccCollection.Add("WEB");
                         tccCollection.Add("TEL");
                         tccCombo.ItemsSource = tccCollection;
-
                         break;
 
                     case "INTERAC":
@@ -178,7 +181,6 @@ namespace OEHP_WPF_Rework
                         chargeTypeCollection.Add("PURCHASE");
                         chargeTypeCollection.Add("REFUND");
                         chargeTypeCombo.ItemsSource = chargeTypeCollection;
-
                         break;
 
                     default:
@@ -189,11 +191,11 @@ namespace OEHP_WPF_Rework
             }
             catch (System.NullReferenceException ex)
             {
-                
+                //Do nothing
             }
             catch (Exception ex)
             {
-
+                //Do Nothing
             }
         }
 
@@ -465,15 +467,11 @@ namespace OEHP_WPF_Rework
                             creditTypeCollection.Add("INDEPENDENT");
                             creditTypeCollection.Add("DEPENDENT");
                             creditTypeCombo.ItemsSource = creditTypeCollection;
-
-
                             break;
 
                         default:
                             creditTypeCombo.Visibility = Visibility.Hidden;
                             creditTypeLabel.Visibility = Visibility.Hidden;
-
-
                             break;
 
                     }
@@ -616,6 +614,11 @@ namespace OEHP_WPF_Rework
                 }
             }
 
+            rcmStatus();
+
+        }
+        public void rcmStatus()
+        {
             //RCM Status Code, Will fire after every DocCompleted event.
 
             try
@@ -636,8 +639,6 @@ namespace OEHP_WPF_Rework
             {
                 writeToLog(ex.ToString());
             }
-
-
         }
 
         private void queryBrowser_LoadCompleted(object sender, NavigationEventArgs e)

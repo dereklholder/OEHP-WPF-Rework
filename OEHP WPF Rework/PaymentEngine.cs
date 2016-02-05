@@ -7,7 +7,6 @@ using System.Text;
 using System.Windows;
 /// <summary>
 /// General Methods for generating Parameters and sending POSTs to the gateway.
-/// Old code Commented and left for reference.
 /// </summary>
 namespace OEHP_WPF_Rework
 {
@@ -325,8 +324,6 @@ namespace OEHP_WPF_Rework
             string orderIDBuilder = "order_id=" + orderID;
             string payerIDBuilder = "payer_identifier=" + payer_id;
             string spanBuilder = "span=" + span;
-            //string expYYBuilder = "expire_year=" + expYY; Update Customer not yet implemented into API, 
-            //string expMMBuilder = "expire_month=" + expMM;
             string amountBuilder = "charge_total=" + chargeAmount;
             StringBuilder parameters = new StringBuilder();
             parameters.Append(accountTokenBuilder

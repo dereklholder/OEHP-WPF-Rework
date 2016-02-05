@@ -31,7 +31,46 @@ namespace OEHP_WPF_Rework
             transactionTypeCollection.Add("CREDIT_CARD");
             transactionTypeCollection.Add("DEBIT_CARD");
             transactionTypeCollection.Add("ACH");
-            transactionTypeCollection.Add("INTERAC"); 
+            transactionTypeCollection.Add("INTERAC");
+
+            
+            creditEntryModeCollection.Add("EMV");
+            creditEntryModeCollection.Add("HID");
+            creditEntryModeCollection.Add("KEYED");
+
+            debitEntryModeCollection.Add("EMV");
+            debitEntryModeCollection.Add("HID");
+
+            achEntryModeCollection.Add("KEYED");
+
+            creditChargeTypeCollection.Add("SALE");
+            creditChargeTypeCollection.Add("CREDIT");
+            creditChargeTypeCollection.Add("VOID");
+            creditChargeTypeCollection.Add("FORCE_SALE");
+            creditChargeTypeCollection.Add("AUTH");
+            creditChargeTypeCollection.Add("CAPTURE");
+            creditChargeTypeCollection.Add("ADJUSTMENT");
+            creditChargeTypeCollection.Add("SIGNATURE");
+
+            debitChargeTypeCollection.Add("PURCHASE");
+            debitChargeTypeCollection.Add("REFUND");
+
+            achChargeTypeCollection.Add("DEBIT");
+            achChargeTypeCollection.Add("CREDIT");
+
+            accountTypeCollection.Add("DEFAULT");
+            accountTypeCollection.Add("CASH_BENEFIT");
+            accountTypeCollection.Add("FOOD_STAMP");
+
+            
+            creditTypeCollection.Add("INDEPENDENT");
+            creditTypeCollection.Add("DEPENDENT");
+
+            tccCollection.Add("PPD");
+            tccCollection.Add("CCD");
+            tccCollection.Add("WEB");
+            tccCollection.Add("TEL");
+
 
             this.transactionTypeCombo.ItemsSource = transactionTypeCollection;
 
@@ -64,6 +103,16 @@ namespace OEHP_WPF_Rework
         public ObservableCollection<string> accountTypeCollection = new ObservableCollection<string>();
         public ObservableCollection<string> tccCollection = new ObservableCollection<string>();
 
+        //Rework of Collection to prevent... dumb stuff
+        public ObservableCollection<string> creditChargeTypeCollection = new ObservableCollection<string>();
+        public ObservableCollection<string> creditEntryModeCollection = new ObservableCollection<string>();
+        public ObservableCollection<string> debitChargeTypeCollection = new ObservableCollection<string>();
+        public ObservableCollection<string> debitEntryModeCollection = new ObservableCollection<string>();
+        public ObservableCollection<string> achChargeTypeCollection = new ObservableCollection<string>();
+        public ObservableCollection<string> achEntryModeCollection = new ObservableCollection<string>();
+
+
+
         //Sets available Fields based on Transaction Type Suggested
         private void transactionTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -73,6 +122,7 @@ namespace OEHP_WPF_Rework
                 switch (transactionTypeCombo.SelectedItem.ToString())
                 {
                     case "CREDIT_CARD":
+
                         accountTypeCombo.Visibility = Visibility.Hidden;
                         accountTypeLabel.Visibility = Visibility.Hidden;
                         creditTypeCombo.Visibility = Visibility.Hidden;
@@ -84,25 +134,18 @@ namespace OEHP_WPF_Rework
                         approvalCodeLabel.Visibility = Visibility.Hidden;
                         approvalCodeText.Visibility = Visibility.Hidden;
 
-                        entryModeCollection.Clear();
-                        entryModeCollection.Add("EMV");
-                        entryModeCollection.Add("HID");
-                        entryModeCollection.Add("KEYED");
-                        entryModeCombo.ItemsSource = entryModeCollection;
+                        
+                        entryModeCombo.ItemsSource = creditEntryModeCollection;
+                        
+                        
+                        chargeTypeCombo.ItemsSource = creditChargeTypeCollection;
 
-                        chargeTypeCollection.Clear();
-                        chargeTypeCollection.Add("SALE");
-                        chargeTypeCollection.Add("CREDIT");
-                        chargeTypeCollection.Add("VOID");
-                        chargeTypeCollection.Add("FORCE_SALE");
-                        chargeTypeCollection.Add("AUTH");
-                        chargeTypeCollection.Add("CAPTURE");
-                        chargeTypeCollection.Add("ADJUSTMENT");
-                        chargeTypeCollection.Add("SIGNATURE");
-                        chargeTypeCombo.ItemsSource = chargeTypeCollection;
+                        entryModeCombo.SelectedIndex = -1;
+                        chargeTypeCombo.SelectedIndex = -1;
                         break;
 
                     case "DEBIT_CARD":
+
                         accountTypeCombo.Visibility = Visibility.Visible;
                         accountTypeLabel.Visibility = Visibility.Visible;
                         creditTypeCombo.Visibility = Visibility.Hidden;
@@ -114,24 +157,19 @@ namespace OEHP_WPF_Rework
                         approvalCodeLabel.Visibility = Visibility.Hidden;
                         approvalCodeText.Visibility = Visibility.Hidden;
 
-                        entryModeCollection.Clear();
-                        entryModeCollection.Add("EMV");
-                        entryModeCollection.Add("HID");
-                        entryModeCombo.ItemsSource = entryModeCollection;
+                        entryModeCombo.ItemsSource = debitEntryModeCollection;
 
-                        chargeTypeCollection.Clear();
-                        chargeTypeCollection.Add("PURCHASE");
-                        chargeTypeCollection.Add("REFUND");
-                        chargeTypeCombo.ItemsSource = chargeTypeCollection;
-
-                        accountTypeCollection.Clear();
-                        accountTypeCollection.Add("DEFAULT");
-                        accountTypeCollection.Add("CASH_BENEFIT");
-                        accountTypeCollection.Add("FOOD_STAMP");
+                        chargeTypeCombo.ItemsSource = debitChargeTypeCollection;
+                        
                         accountTypeCombo.ItemsSource = accountTypeCollection;
+
+                        entryModeCombo.SelectedIndex = -1;
+                        chargeTypeCombo.SelectedIndex = -1;
+                        accountTypeCombo.SelectedIndex = -1;
                         break;
 
                     case "ACH":
+
                         accountTypeCombo.Visibility = Visibility.Hidden;
                         accountTypeLabel.Visibility = Visibility.Hidden;
                         creditTypeCombo.Visibility = Visibility.Hidden;
@@ -143,24 +181,20 @@ namespace OEHP_WPF_Rework
                         approvalCodeLabel.Visibility = Visibility.Hidden;
                         approvalCodeText.Visibility = Visibility.Hidden;
 
-                        entryModeCollection.Clear();
-                        entryModeCollection.Add("KEYED");
-                        entryModeCombo.ItemsSource = entryModeCollection;
+                        
+                        entryModeCombo.ItemsSource = achEntryModeCollection;
 
-                        chargeTypeCollection.Clear();
-                        chargeTypeCollection.Add("DEBIT");
-                        chargeTypeCollection.Add("CREDIT");
-                        chargeTypeCombo.ItemsSource = chargeTypeCollection;
-
-                        tccCollection.Clear();
-                        tccCollection.Add("PPD");
-                        tccCollection.Add("CCD");
-                        tccCollection.Add("WEB");
-                        tccCollection.Add("TEL");
+                        chargeTypeCombo.ItemsSource = achChargeTypeCollection;
+                        
                         tccCombo.ItemsSource = tccCollection;
+
+                        entryModeCombo.SelectedIndex = -1;
+                        chargeTypeCombo.SelectedIndex = -1;
+                        tccCombo.SelectedIndex = -1;
                         break;
 
                     case "INTERAC":
+
                         accountTypeCombo.Visibility = Visibility.Hidden;
                         accountTypeLabel.Visibility = Visibility.Hidden;
                         creditTypeCombo.Visibility = Visibility.Hidden;
@@ -172,15 +206,13 @@ namespace OEHP_WPF_Rework
                         approvalCodeLabel.Visibility = Visibility.Hidden;
                         approvalCodeText.Visibility = Visibility.Hidden;
 
-                        entryModeCollection.Clear();
-                        entryModeCollection.Add("EMV");
-                        entryModeCollection.Add("HID");
-                        entryModeCombo.ItemsSource = entryModeCollection;
+                        entryModeCombo.ItemsSource = debitEntryModeCollection;
+                        
+                        chargeTypeCombo.ItemsSource = debitChargeTypeCollection;
 
-                        chargeTypeCollection.Clear();
-                        chargeTypeCollection.Add("PURCHASE");
-                        chargeTypeCollection.Add("REFUND");
-                        chargeTypeCombo.ItemsSource = chargeTypeCollection;
+                        entryModeCombo.SelectedIndex = -1;
+                        chargeTypeCombo.SelectedIndex = -1;
+                        accountTypeCombo.SelectedIndex = -1;
                         break;
 
                     default:
@@ -397,32 +429,18 @@ namespace OEHP_WPF_Rework
                     {
                         case "CREDIT":
 
-                            switch (creditTypeCombo.Text)
-                            {
-                                case "DEPENDENT":
-                                    parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
-                                        entryModeCombo.Text, orderIDText.Text, amountText.Text, TCC, customParamText.Text);
-                                    postParametersText.Text = parameters;
-                                    writeToLog(parameters);
+                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
+                            parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
+                            entryModeCombo.Text, orderIDText.Text, amountText.Text, VariableHandler.TCC, customParamText.Text);
+                            postParametersText.Text = parameters;
+                            writeToLog(parameters);
 
-                                    hostPayBrowser.NavigateToString(PaymentEngine.webRequest_Query(parameters));
-                                    break;
+                            otk = PaymentEngine.webRequest_Post(parameters);
 
-                                case "INDEPENDENT":
-                                    parameters = PaymentEngine.ACHParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
-                                        entryModeCombo.Text, orderIDText.Text, amountText.Text, VariableHandler.TCC, customParamText.Text);
-                                    postParametersText.Text = parameters;
-                                    writeToLog(parameters);
-
-                                    otk = PaymentEngine.webRequest_Post(parameters);
-
-                                    hostPayBrowser.Navigate(PaymentEngine.otkURL + otk);
-                                    break;
-                                default:
-                                    MessageBox.Show("An Error has occured, Invalid transaction parameters");
-                                    break;
-                            }
-                            break; //End Credit Case
+                            hostPayBrowser.Navigate(PaymentEngine.otkURL + otk);
+                            break;
+                
+            
 
                         case "DEBIT":
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
@@ -463,9 +481,6 @@ namespace OEHP_WPF_Rework
                             creditTypeCombo.Visibility = Visibility.Visible;
                             creditTypeLabel.Visibility = Visibility.Visible;
 
-                            creditTypeCollection.Clear();
-                            creditTypeCollection.Add("INDEPENDENT");
-                            creditTypeCollection.Add("DEPENDENT");
                             creditTypeCombo.ItemsSource = creditTypeCollection;
                             break;
 
@@ -646,12 +661,10 @@ namespace OEHP_WPF_Rework
             
             try
             {
-                StringBuilder s = new StringBuilder();
-                s.Append(queryBrowser.ToString());
-
-                writeToLog(s.ToString());
+                                
                 string queryString = HttpUtility.HtmlDecode((queryBrowser.Document as mshtml.IHTMLDocument2).body.innerHTML);
                 NameValueCollection keyPairs = HttpUtility.ParseQueryString(queryString);
+                writeToLog(queryString);
 
                 string id = keyPairs.Get("receipt_approval_code");
                 string payer_Id = keyPairs.Get("payer_identifier");
@@ -883,17 +896,26 @@ namespace OEHP_WPF_Rework
 
         private void creditTypeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (creditTypeCombo.SelectedItem.ToString())
-            {
-                case "INDEPENDENT":
-                    orderIDText.IsReadOnly = false;
-                    break;
-                case "DEPENDENT":
-                    orderIDText.IsReadOnly = true;
-                    break;
-                default:
-                    break;
 
+            try
+            {
+                switch (creditTypeCombo.SelectedItem.ToString())
+                {
+                    case "INDEPENDENT":
+                        orderIDText.IsReadOnly = false;
+                        break;
+                    case "DEPENDENT":
+                        orderIDText.IsReadOnly = true;
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+            catch (NullReferenceException)
+            {
+
+                //do nothing
             }
         }
     }

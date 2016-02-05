@@ -6,6 +6,10 @@ using Org.BouncyCastle.Crypto.Parameters;
 using System;
 using System.Text;
 
+/// <summary>
+/// Encryption code, used for Settings.dat
+/// </summary>
+
 namespace OEHP_WPF_Rework
 {
     public class Crypto

@@ -548,13 +548,7 @@ namespace OEHP_WPF_Rework
                     break;
             }
         }
-        public static string browserContent(WebBrowser wb)
-        {
-            //mshtml.HTMLDocumentClass dom = (mshtml.HTMLDocumentClass)wb.Document;
-            //var innerHtml = dom.body.innerHTML;
-            string innerHtml = (wb.Document as mshtml.IHTMLDocument2).body.innerHTML;
-            return innerHtml;
-        }
+        
 
         public static string GetPageContent(WebBrowser wb)
         {
@@ -812,7 +806,6 @@ namespace OEHP_WPF_Rework
                         
                         NameValueCollection keyPairs = HttpUtility.ParseQueryString(queryResult);
                         string receiptData = HttpUtility.HtmlDecode(HttpUtility.UrlDecode(keyPairs.Get("customer_receipt")));
-                        //string receiptFormatted = receiptData.Replace("\n", "\r\n");
                         Receipt r = new Receipt();
                         r.ReceiptText.Text = receiptData.Replace("\n", "\r\n");
                         r.ShowDialog();
@@ -836,7 +829,6 @@ namespace OEHP_WPF_Rework
 
                         NameValueCollection keyPairs = HttpUtility.ParseQueryString(queryResult);
                         string receiptData = HttpUtility.UrlDecode(keyPairs.Get("customer_receipt"));
-                        //string receiptFormatted = receiptData.Replace("\n", "\r\n");
                         Receipt r = new Receipt();
                         r.ReceiptText.Text = receiptData.Replace("\n", "\r\n");
                         r.ShowDialog();
@@ -860,7 +852,6 @@ namespace OEHP_WPF_Rework
 
                         NameValueCollection keyPairs = HttpUtility.ParseQueryString(queryResult);
                         string receiptData = HttpUtility.UrlDecode(keyPairs.Get("customer_receipt"));
-                        //string receiptFormatted = receiptData.Replace("\n", "\r\n");
                         Receipt r = new Receipt();
                         r.ReceiptText.Text = receiptData.Replace("\n", "\r\n");
                         r.ShowDialog();

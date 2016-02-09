@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
 namespace OEHP_WPF_Rework
@@ -87,23 +88,21 @@ namespace OEHP_WPF_Rework
 
             accountTokenText.Text = VariableHandler.AccountToken;
         }
+
         public void writeToLog(string logString) //Code for logging functions.
         {
             var logPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, System.IO.Path.Combine("Logging", "Log.txt")).ToString();
             string timeStamp = DateTime.Now.ToString();
             File.AppendAllText(logPath, timeStamp + Environment.NewLine + logString + Environment.NewLine + "--------------------------------------------------" + Environment.NewLine);
         }
-        public string TCC = null;
 
         //Collections for ComboBoxen
         public ObservableCollection<string> transactionTypeCollection = new ObservableCollection<string>();
-        public ObservableCollection<string> entryModeCollection = new ObservableCollection<string>();
-        public ObservableCollection<string> chargeTypeCollection = new ObservableCollection<string>();
+        //public ObservableCollection<string> entryModeCollection = new ObservableCollection<string>();
+        //public ObservableCollection<string> chargeTypeCollection = new ObservableCollection<string>();
         public ObservableCollection<string> creditTypeCollection = new ObservableCollection<string>();
         public ObservableCollection<string> accountTypeCollection = new ObservableCollection<string>();
         public ObservableCollection<string> tccCollection = new ObservableCollection<string>();
-
-        //Rework of Collection to prevent... dumb stuff
         public ObservableCollection<string> creditChargeTypeCollection = new ObservableCollection<string>();
         public ObservableCollection<string> creditEntryModeCollection = new ObservableCollection<string>();
         public ObservableCollection<string> debitChargeTypeCollection = new ObservableCollection<string>();
@@ -221,11 +220,11 @@ namespace OEHP_WPF_Rework
 
                 }
             }
-            catch (System.NullReferenceException ex)
+            catch (System.NullReferenceException)
             {
                 //Do nothing
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Do Nothing
             }
@@ -244,7 +243,7 @@ namespace OEHP_WPF_Rework
                     switch (chargeTypeCombo.Text)
                     {
                         case "SALE":
-                            //Randomizes the Order, sends Settings over to the ParamBuilder, Then Sends a request to get the OtK  (sealedSetup Parameters) and then
+                            //Randomizes the OrderID, sends Settings over to the ParamBuilder, Then Sends a request to get the OtK  (sealedSetup Parameters) and then
                             // Apends to the PayPage URL to render the page.
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
                             parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
@@ -271,7 +270,7 @@ namespace OEHP_WPF_Rework
 
                                 case "INDEPENDENT":
                                     parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
-                                        entryModeCombo.Text, orderIDText.Text, amountText.Text, customParamText.Text); // Build Parameters for POST
+                                        entryModeCombo.Text, orderIDText.Text, amountText.Text, customParamText.Text); 
                                     postParametersText.Text = parameters;
                                     writeToLog(parameters);
 
@@ -362,25 +361,25 @@ namespace OEHP_WPF_Rework
                     {
                         case "REFUND":
                             parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
-                                entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParamText.Text); // Build Parameters for POST
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParamText.Text); 
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
                             otk = PaymentEngine.webRequest_Post(parameters);
 
-                            hostPayBrowser.Navigate(PaymentEngine.otkURL + otk); //Navigate Web Browser to Paypage URL + Session Token
+                            hostPayBrowser.Navigate(PaymentEngine.otkURL + otk); 
                             break;
 
                         case "PURCHASE":
                             orderIDText.Text = PaymentEngine.orderIDRandom(8);
                             parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
-                                entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParamText.Text); // Build Parameters for POST
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParamText.Text); 
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
                             otk = PaymentEngine.webRequest_Post(parameters);
 
-                            hostPayBrowser.Navigate(PaymentEngine.otkURL + otk); //Navigate Web Browser to Paypage URL + Session Token
+                            hostPayBrowser.Navigate(PaymentEngine.otkURL + otk);
                             break;
 
                         default:
@@ -396,13 +395,13 @@ namespace OEHP_WPF_Rework
                     {
                         case "REFUND":
                             parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
-                                entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParamText.Text); // Build Parameters for POST
+                                entryModeCombo.Text, orderIDText.Text, amountText.Text, accountTypeCombo.Text, customParamText.Text); 
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
                             otk = PaymentEngine.webRequest_Post(parameters);
 
-                            hostPayBrowser.Navigate(PaymentEngine.otkURL + otk); //Navigate Web Browser to Paypage URL + Session Token
+                            hostPayBrowser.Navigate(PaymentEngine.otkURL + otk); 
                             break;
 
                         case "PURCHASE":
@@ -556,6 +555,13 @@ namespace OEHP_WPF_Rework
             string innerHtml = (wb.Document as mshtml.IHTMLDocument2).body.innerHTML;
             return innerHtml;
         }
+
+        public static string GetPageContent(WebBrowser wb)
+        {
+            return ((mshtml.HTMLDocumentClass)wb.Document).body.innerHTML;
+        }
+
+
         private void hostPayBrowser_LoadCompleted(object sender, NavigationEventArgs e)
         {
             //Performs Query on Every Doc Completed, if it sees the response_code=1 then it it displays the query result. Better implementation to come.
@@ -564,7 +570,8 @@ namespace OEHP_WPF_Rework
             string finishedResponse = @"^(.*?(\bresponse_code=1\b)[^$]*)$";
             string queryResult;
             bool performQuery;
-            
+
+
 
             if (null != hostPayBrowser.Document)
             {
@@ -579,6 +586,27 @@ namespace OEHP_WPF_Rework
                         if (performQuery == true)
                         {
                             queryBrowser.NavigateToString(queryResult);
+
+                            //Parsing out the Signature Image from the HTML
+                            string pageHTML = GetPageContent(hostPayBrowser).Replace("\\", " ").Replace("\n", " ");
+
+                            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                            doc.LoadHtml(pageHTML);
+                            var value = doc.DocumentNode.SelectSingleNode("//input[@type='hidden' and @id='signatureImage' and @name='signatureImage']").Attributes["value"].Value;
+
+                            if (null != value)
+                            {
+                                byte[] binaryData = Convert.FromBase64String(value);
+
+                                BitmapImage bi = new BitmapImage();
+                                bi.BeginInit();
+                                bi.StreamSource = new MemoryStream(binaryData);
+                                bi.EndInit();
+
+                                sigImage.Source = bi;
+                            }
+
+
                         }
                         else if (performQuery != true)
                         {
@@ -767,7 +795,7 @@ namespace OEHP_WPF_Rework
             //Performs additional Query and Displays Receipt
 
             string parameters;
-            string finishedResponse = @"^(.*?(\b&response_code=1\b)[^$]*)$";
+            string finishedResponse = @"^(.*?(\bresponse_code=1\b)[^$]*)$";
             string queryResult;
             bool performQuery;
 
@@ -783,7 +811,7 @@ namespace OEHP_WPF_Rework
                     {
                         
                         NameValueCollection keyPairs = HttpUtility.ParseQueryString(queryResult);
-                        string receiptData = HttpUtility.UrlDecode(keyPairs.Get("customer_receipt"));
+                        string receiptData = HttpUtility.HtmlDecode(HttpUtility.UrlDecode(keyPairs.Get("customer_receipt")));
                         //string receiptFormatted = receiptData.Replace("\n", "\r\n");
                         Receipt r = new Receipt();
                         r.ReceiptText.Text = receiptData.Replace("\n", "\r\n");

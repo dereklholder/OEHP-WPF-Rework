@@ -563,8 +563,9 @@ namespace OEHP_WPF_Rework
             string parameters;
             string finishedResponse = @"^(.*?(\bresponse_code=1\b)[^$]*)$";
             string queryResult;
-            bool performQuery;
-
+            rcmStatus();
+            bool performQuery = Convert.ToBoolean(VariableHandler.RcmFinished);
+            
 
 
             if (null != hostPayBrowser.Document)
@@ -651,7 +652,7 @@ namespace OEHP_WPF_Rework
                 }
             }
 
-            rcmStatus();
+            
 
         }
         public void rcmStatus()
@@ -661,6 +662,7 @@ namespace OEHP_WPF_Rework
             try
             {
                 string ssp = VariableHandler.SSP;
+                VariableHandler.RcmFinished = "false";
                 WebRequest wr = WebRequest.Create("https://ws.test.paygateway.com/HostPayService/v1/hostpay/transactions/status/" + ssp);
                 wr.Method = "GET";
 
@@ -670,7 +672,19 @@ namespace OEHP_WPF_Rework
                 StreamReader sr = new StreamReader(objStream);
 
                 string rcmStatus = sr.ReadToEnd();
+                NameValueCollection rcmKeyPairs = HttpUtility.ParseQueryString(rcmStatus);
                 rcmStatusText.Text = rcmStatus;
+                string rcmResponse = rcmKeyPairs.Get("rcm_finished_signal");
+                if (rcmResponse == "true")
+                {
+                    VariableHandler.RcmFinished = "true";
+                }
+                else
+                {
+                    VariableHandler.RcmFinished = "false";
+                }
+
+                
             }
             catch (Exception ex)
             {

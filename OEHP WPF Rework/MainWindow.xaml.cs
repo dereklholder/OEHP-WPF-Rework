@@ -140,7 +140,7 @@ namespace OEHP_WPF_Rework
                         chargeTypeCombo.ItemsSource = creditChargeTypeCollection;
 
                         entryModeCombo.SelectedIndex = -1;
-                        chargeTypeCombo.SelectedIndex = -1;
+                        chargeTypeCombo.SelectedIndex = 0;
                         break;
 
                     case "DEBIT_CARD":
@@ -163,7 +163,7 @@ namespace OEHP_WPF_Rework
                         accountTypeCombo.ItemsSource = accountTypeCollection;
 
                         entryModeCombo.SelectedIndex = -1;
-                        chargeTypeCombo.SelectedIndex = -1;
+                        chargeTypeCombo.SelectedIndex = 0;
                         accountTypeCombo.SelectedIndex = -1;
                         break;
 
@@ -297,7 +297,6 @@ namespace OEHP_WPF_Rework
                             break;
 
                         case "VOID":
-                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
                             parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
                                 entryModeCombo.Text, orderIDText.Text, amountText.Text, customParamText.Text);
                             postParametersText.Text = parameters;
@@ -307,17 +306,17 @@ namespace OEHP_WPF_Rework
                             break;
 
                         case "FORCE_SALE":
-                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
                             parameters = PaymentEngine.ParamBuilderAppCode(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
                                 entryModeCombo.Text, orderIDText.Text, amountText.Text, approvalCodeText.Text, customParamText.Text);
                             postParametersText.Text = parameters;
                             writeToLog(parameters);
 
-                            hostPayBrowser.NavigateToString(PaymentEngine.webRequest_Query(parameters));
+                            otk = PaymentEngine.webRequest_Post(parameters);
+
+                            hostPayBrowser.Navigate(PaymentEngine.otkURL + otk);
                             break;
 
                         case "CAPTURE":
-                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
                             parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
                                 entryModeCombo.Text, orderIDText.Text, amountText.Text, customParamText.Text);
                             postParametersText.Text = parameters;
@@ -327,7 +326,6 @@ namespace OEHP_WPF_Rework
                             break;
 
                         case "ADJUSTMENT":
-                            orderIDText.Text = PaymentEngine.orderIDRandom(8);
                             parameters = PaymentEngine.ParamBuilder(accountTokenText.Text, transactionTypeCombo.Text, chargeTypeCombo.Text,
                                 entryModeCombo.Text, orderIDText.Text, amountText.Text, customParamText.Text);
                             postParametersText.Text = parameters;
@@ -503,6 +501,12 @@ namespace OEHP_WPF_Rework
                     approvalCodeLabel.Visibility = Visibility.Visible;
                     break;
 
+                case "ADJUSTMENT":
+                    orderIDText.IsReadOnly = false;
+                    approvalCodeLabel.Visibility = Visibility.Hidden;
+                    approvalCodeText.Visibility = Visibility.Hidden;
+                    break;
+
                 case "VOID":
                     orderIDText.IsReadOnly = false;
                     approvalCodeLabel.Visibility = Visibility.Hidden;
@@ -550,9 +554,30 @@ namespace OEHP_WPF_Rework
         }
         
 
-        public static string GetPageContent(WebBrowser wb)
+        public string GetPageContent(WebBrowser wb)
         {
             return ((mshtml.HTMLDocumentClass)wb.Document).body.innerHTML;
+        }
+
+        public void PaymentFinishedSignal()
+        {
+            VariableHandler.PaymentFinishedSignal = null;
+            string pageHTML = GetPageContent(hostPayBrowser).Replace("\\", " ").Replace("\n", " ");
+
+            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+            doc.LoadHtml(pageHTML);
+            try
+            {
+                var value = doc.DocumentNode.SelectSingleNode("//input[@type='hidden' and @id='paymentFinishedSignal']").Attributes["value"].Value;
+                VariableHandler.PaymentFinishedSignal = value;
+            }
+            catch (Exception ex)
+            {
+                // Do nothing
+            }
+            
+            
+            
         }
 
 
@@ -564,11 +589,13 @@ namespace OEHP_WPF_Rework
             string finishedResponse = @"^(.*?(\bresponse_code=1\b)[^$]*)$";
             string queryResult;
             rcmStatus();
-            bool performQuery = Convert.ToBoolean(VariableHandler.RcmFinished);
+            PaymentFinishedSignal(); // To Implement
+            bool performQuery = false; 
+            string pFS = VariableHandler.PaymentFinishedSignal;
+            
             
 
-
-            if (null != hostPayBrowser.Document)
+            if (pFS == "done")
             {
                 switch (transactionTypeCombo.Text)
                 {
@@ -576,29 +603,44 @@ namespace OEHP_WPF_Rework
                         parameters = PaymentEngine.QueryBuilder(accountTokenText.Text, orderIDText.Text,
                     transactionTypeCombo.Text, "QUERY_PAYMENT"); // Build Query
                         queryResult = PaymentEngine.webRequest_Query(parameters);
-                        performQuery = Regex.Match(queryResult, finishedResponse).Success;
+                        if (entryModeCombo.Text == "EMV" || entryModeCombo.Text == "HID")
+                        {
+                            performQuery = Convert.ToBoolean(VariableHandler.RcmFinished);
+                        }
+                        else
+                        {
+                            performQuery = Regex.Match(queryResult, finishedResponse).Success;
+                        }
 
                         if (performQuery == true)
                         {
                             queryBrowser.NavigateToString(queryResult);
 
                             //Parsing out the Signature Image from the HTML
-                            string pageHTML = GetPageContent(hostPayBrowser).Replace("\\", " ").Replace("\n", " ");
-
-                            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-                            doc.LoadHtml(pageHTML);
-                            var value = doc.DocumentNode.SelectSingleNode("//input[@type='hidden' and @id='signatureImage' and @name='signatureImage']").Attributes["value"].Value;
-
-                            if (null != value)
+                            try
                             {
-                                byte[] binaryData = Convert.FromBase64String(value);
+                                string pageHTML = GetPageContent(hostPayBrowser).Replace("\\", " ").Replace("\n", " ");
 
-                                BitmapImage bi = new BitmapImage();
-                                bi.BeginInit();
-                                bi.StreamSource = new MemoryStream(binaryData);
-                                bi.EndInit();
+                                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                                doc.LoadHtml(pageHTML);
+                                var value = doc.DocumentNode.SelectSingleNode("//input[@type='hidden' and @id='signatureImage' and @name='signatureImage']").Attributes["value"].Value;
 
-                                sigImage.Source = bi;
+                                if (null != value)
+                                {
+                                    byte[] binaryData = Convert.FromBase64String(value);
+
+                                    BitmapImage bi = new BitmapImage();
+                                    bi.BeginInit();
+                                    bi.StreamSource = new MemoryStream(binaryData);
+                                    bi.EndInit();
+
+                                    sigImage.Source = bi;
+                                }
+                            }
+                            catch (Exception)
+                            {
+
+                                // Do Nothing
                             }
 
 
@@ -615,7 +657,14 @@ namespace OEHP_WPF_Rework
                         parameters = PaymentEngine.QueryBuilder(accountTokenText.Text, orderIDText.Text,
                     transactionTypeCombo.Text, "QUERY_PURCHASE"); // Build Query
                         queryResult = PaymentEngine.webRequest_Query(parameters);
-                        performQuery = Regex.Match(queryResult, finishedResponse).Success;
+                        if (entryModeCombo.Text == "EMV" || entryModeCombo.Text == "HID")
+                        {
+                            performQuery = Convert.ToBoolean(VariableHandler.RcmFinished);
+                        }
+                        else
+                        {
+                            performQuery = Regex.Match(queryResult, finishedResponse).Success;
+                        }
 
                         if (performQuery == true)
                         {
@@ -651,6 +700,10 @@ namespace OEHP_WPF_Rework
                         break;
                 }
             }
+            else
+            {
+                writeToLog("Payment not Finished");
+            }
 
             
 
@@ -663,7 +716,7 @@ namespace OEHP_WPF_Rework
             {
                 string ssp = VariableHandler.SSP;
                 VariableHandler.RcmFinished = "false";
-                WebRequest wr = WebRequest.Create("https://ws.test.paygateway.com/HostPayService/v1/hostpay/transactions/status/" + ssp);
+                WebRequest wr = WebRequest.Create(VariableHandler.RcmStatusURL + ssp);
                 wr.Method = "GET";
 
                 Stream objStream;

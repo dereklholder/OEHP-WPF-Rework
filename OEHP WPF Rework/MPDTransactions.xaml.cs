@@ -129,9 +129,7 @@ namespace OEHP_WPF_Rework
 
         private void hostPayBrowser_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
-            //string script = "document.body.style.overflow='hidden'";
-            //WebBrowser hostPayBrowser = (WebBrowser)sender;
-            //hostPayBrowser.InvokeScript("execScript", new Object[] { script, "JavaScript" });
+            
         }
     }
 }

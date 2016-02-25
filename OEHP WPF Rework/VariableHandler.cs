@@ -9,6 +9,13 @@ namespace OEHP_WPF_Rework
         public static string AccountToken { get; set; }
         public static string CryptoKey = "6f70656e65646765686f7374706179DH";
         public static string RcmFinished { get; set; }
-        
+        public static string RcmStatusURL = "https://ws.test.paygateway.com/HostPayService/v1/hostpay/transactions/status/";
+        public static string PaymentFinishedSignal { get; set; }
+
+        public static string PayPageLiveURL = "https://ws.paygateway.com/HostPayService/v1/hostpay/paypage/";
+        public static string EdgeLiveURL = "https://ws.paygateway.com/HostPayService/v1/hostpay/transactions";
+        public static string DirectPostLiveURL = "https://ws.paygateway.com/api/v1/transactions";
+
+
     }
 }

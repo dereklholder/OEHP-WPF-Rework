@@ -18,8 +18,7 @@ namespace OEHP_WPF_Rework
         private readonly IBlockCipher _blockCipher;
         private PaddedBufferedBlockCipher _cipher;
         private IBlockCipherPadding _padding;
-
-        public readonly string Key = "6f70656e65646765686f7374706179DH";
+        
 
         public Crypto(IBlockCipher blockCipher, Encoding encoding)
         {

@@ -80,8 +80,8 @@ namespace OEHP_WPF_Rework
             _padding = pkcs;
 
             var settingsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.dat").ToString();
-            string data = File.ReadAllText(settingsPath);
-            string decryptedData = AESDecryption(data, VariableHandler.CryptoKey, true);
+            //string data = File.ReadAllText(settingsPath);
+            string decryptedData = AESDecryption(File.ReadAllText(settingsPath), VariableHandler.CryptoKey, true);
             var parts = decryptedData.Split(',');
             VariableHandler.AccountToken = parts[0];
             customParamText.Text = parts[1];

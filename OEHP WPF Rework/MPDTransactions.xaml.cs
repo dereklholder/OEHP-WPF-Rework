@@ -13,7 +13,6 @@ namespace OEHP_WPF_Rework
         public MPDTransactions()
         {
             InitializeComponent();
-
             
         }
         //Collections

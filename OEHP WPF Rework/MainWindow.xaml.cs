@@ -188,7 +188,7 @@ namespace OEHP_WPF_Rework
                         tccCombo.ItemsSource = tccCollection;
 
                         entryModeCombo.SelectedIndex = -1;
-                        chargeTypeCombo.SelectedIndex = -1;
+                        chargeTypeCombo.SelectedIndex = 0;
                         tccCombo.SelectedIndex = -1;
                         break;
 
@@ -210,7 +210,7 @@ namespace OEHP_WPF_Rework
                         chargeTypeCombo.ItemsSource = debitChargeTypeCollection;
 
                         entryModeCombo.SelectedIndex = -1;
-                        chargeTypeCombo.SelectedIndex = -1;
+                        chargeTypeCombo.SelectedIndex = 0;
                         accountTypeCombo.SelectedIndex = -1;
                         break;
 

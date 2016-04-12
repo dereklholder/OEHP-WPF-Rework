@@ -13,6 +13,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace OEHP_WPF_Rework
 {
@@ -553,12 +555,13 @@ namespace OEHP_WPF_Rework
             }
         }
         
-
+        //Converts Web Broser content to HTMlDocument for Parsing
         public string GetPageContent(WebBrowser wb)
         {
             return ((mshtml.HTMLDocumentClass)wb.Document).body.innerHTML;
         }
 
+        //Parsed HTML for the payment Finished Finished Signal
         public void PaymentFinishedSignal()
         {
             VariableHandler.PaymentFinishedSignal = null;
@@ -589,7 +592,7 @@ namespace OEHP_WPF_Rework
             string finishedResponse = @"^(.*?(\bresponse_code=1\b)[^$]*)$";
             string queryResult;
             rcmStatus();
-            PaymentFinishedSignal(); // To Implement
+            PaymentFinishedSignal();
             bool performQuery = false; 
             string pFS = VariableHandler.PaymentFinishedSignal;
             
@@ -703,11 +706,10 @@ namespace OEHP_WPF_Rework
             else
             {
                 writeToLog("Payment not Finished");
-            }
-
-            
+            } 
 
         }
+
         public void rcmStatus()
         {
             //RCM Status Code, Will fire after every DocCompleted event.
@@ -1003,6 +1005,25 @@ namespace OEHP_WPF_Rework
 
                 //do nothing
             }
+        }
+
+        private void convertToJsonButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            //Broken Code, Will Revisit.
+
+            string queryString = HttpUtility.HtmlDecode((queryBrowser.Document as mshtml.IHTMLDocument2).body.innerHTML);
+            NameValueCollection keyPairs = HttpUtility.ParseQueryString(queryString);
+            keyPairs.AllKeys.ToDictionary(k => k, k => keyPairs[k]);
+
+            var json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(keyPairs);
+
+            VariableHandler.queryResultJson = json.ToString();
+
+            JsonQuery jq = new JsonQuery();
+            jq.ShowDialog();
+
+
         }
     }
 }

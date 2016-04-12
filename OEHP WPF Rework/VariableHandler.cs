@@ -16,6 +16,8 @@ namespace OEHP_WPF_Rework
         public static string EdgeLiveURL = "https://ws.paygateway.com/HostPayService/v1/hostpay/transactions";
         public static string DirectPostLiveURL = "https://ws.paygateway.com/api/v1/transactions";
 
+        public static string queryResultJson { get; set; }
+
 
     }
 }

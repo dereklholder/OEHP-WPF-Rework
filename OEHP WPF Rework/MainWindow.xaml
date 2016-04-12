@@ -35,12 +35,12 @@
         <ComboBox x:Name="creditTypeCombo" HorizontalAlignment="Left" Margin="199,122,0,0" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="creditTypeCombo_SelectionChanged" Visibility="Visible" Grid.Column="1"/>
         <ComboBox x:Name="tccCombo" HorizontalAlignment="Left" Margin="326,122,0,0" VerticalAlignment="Top" Width="160" Height="22" SelectionChanged="tccCombo_SelectionChanged" Visibility="Hidden" Grid.Column="1"/>
         <Label x:Name="customParamLabel" Content="Custom Parameters:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="26" Margin="496,98,0,0" Width="162" Grid.Column="1"/>
-        <TextBox x:Name="customParamText" HorizontalAlignment="Left" Height="96" Margin="496,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
+        <TextBox x:Name="customParamText" HorizontalAlignment="Left" Height="84" Margin="496,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
         <WebBrowser x:Name="hostPayBrowser" HorizontalAlignment="Left" Height="443" Margin="11,246,0,0" VerticalAlignment="Top" Width="550" LoadCompleted="hostPayBrowser_LoadCompleted" Grid.ColumnSpan="2"/>
         <Button x:Name="submitButton" Content="Submit" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top" Width="75" Click="submitButton_Click" RenderTransformOrigin="0.491,1.039" Grid.ColumnSpan="2" Height="22"/>
         <Label x:Name="queryResponseLabel" Content="Query Response:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.192,-0.067" Height="28" Margin="496,213,0,0" Width="153" Grid.Column="1"/>
-        <Button x:Name="forceQueryButton" Content="Query" HorizontalAlignment="Left" Margin="199,215,0,0" VerticalAlignment="Top" Width="75" Click="forceQueryButton_Click" Grid.Column="1" Height="22"/>
-        <Button x:Name="parseReceipt" Content="Parse Receipt" HorizontalAlignment="Left" Margin="326,215,0,0" VerticalAlignment="Top" Width="104" Click="parseReceipt_Click" Grid.Column="1" Height="22"/>
+        <Button x:Name="forceQueryButton" Content="Query" HorizontalAlignment="Left" Margin="304,215,0,0" VerticalAlignment="Top" Width="75" Click="forceQueryButton_Click" Grid.Column="1" Height="22" RenderTransformOrigin="1.867,0.511"/>
+        <Button x:Name="parseReceipt" Content="Parse Receipt" HorizontalAlignment="Left" Margin="384,215,0,0" VerticalAlignment="Top" Width="104" Click="parseReceipt_Click" Grid.Column="1" Height="22"/>
         <TextBox x:Name="postParametersText" Grid.Column="2" HorizontalAlignment="Left" Height="193" Margin="10,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"/>
         <TextBox x:Name="queryPostText" Grid.Column="2" HorizontalAlignment="Left" Height="202" Margin="10,246,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"/>
         <Label x:Name="postParametersLabel" Content="Post Parameters:" Grid.Column="2" HorizontalAlignment="Left" Margin="10,-2,0,0" VerticalAlignment="Top" Height="26" Width="98"/>
@@ -54,6 +54,8 @@
         <TextBox x:Name="rcmStatusText" Grid.Column="2" HorizontalAlignment="Left" Height="210" Margin="10,479,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"/>
         <Button x:Name="mpdTransactions" Content="MPD Transactions" HorizontalAlignment="Left" Margin="628,24,0,0" VerticalAlignment="Top" Width="136" Click="mpdTransactions_Click" Grid.Column="1" Height="22"/>
         <Button x:Name="saveSettings" Content="Save Settings" HorizontalAlignment="Left" Margin="496,24,0,0" VerticalAlignment="Top" Width="127" Click="saveSettings_Click" Grid.Column="1" Height="22"/>
+        <Button x:Name="button" Grid.ColumnSpan="2" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="convertToJsonButton" Content="Query Result as JSON" Grid.Column="1" HorizontalAlignment="Left" Margin="628,215,0,0" VerticalAlignment="Top" Width="136" Click="convertToJsonButton_Click"/>
 
     </Grid>
 </Window>

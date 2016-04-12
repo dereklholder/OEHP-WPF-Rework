@@ -81,7 +81,9 @@
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -102,6 +104,9 @@
     </ApplicationDefinition>
     <Compile Include="crypto.cs" />
     <Compile Include="db.cs" />
+    <Compile Include="JsonQuery.xaml.cs">
+      <DependentUpon>JsonQuery.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MPDTransactions.xaml.cs">
       <DependentUpon>MPDTransactions.xaml</DependentUpon>
     </Compile>
@@ -109,6 +114,10 @@
       <DependentUpon>Receipt.xaml</DependentUpon>
     </Compile>
     <Compile Include="VariableHandler.cs" />
+    <Page Include="JsonQuery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

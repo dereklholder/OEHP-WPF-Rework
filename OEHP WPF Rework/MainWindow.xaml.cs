@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace OEHP_WPF_Rework
 {
@@ -1009,20 +1010,33 @@ namespace OEHP_WPF_Rework
 
         private void convertToJsonButton_Click(object sender, RoutedEventArgs e)
         {
-
-            //Broken Code, Will Revisit.
+            
 
             string queryString = HttpUtility.HtmlDecode((queryBrowser.Document as mshtml.IHTMLDocument2).body.innerHTML);
-            NameValueCollection keyPairs = HttpUtility.ParseQueryString(queryString);
-            keyPairs.AllKeys.ToDictionary(k => k, k => keyPairs[k]);
+            string json = QueryStringToJson(queryString);
 
-            var json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(keyPairs);
 
-            VariableHandler.queryResultJson = json.ToString();
+            VariableHandler.queryResultJson = json;
 
             JsonQuery jq = new JsonQuery();
+            jq.jsonText.Text = json;
             jq.ShowDialog();
 
+
+        }
+        public string QueryStringToJson(string queryString)
+        {
+            queryString = queryString.Remove(queryString.Length - 1);
+            NameValueCollection keyPairs = HttpUtility.ParseQueryString(queryString);
+            keyPairs.AllKeys.Where(k => !String.IsNullOrEmpty(k)).ToDictionary(k => k, k => keyPairs[k]);
+            Dictionary<string, string> dictData = new Dictionary<string, string>(keyPairs.Count);
+            foreach (string key in keyPairs.AllKeys)
+            {
+                dictData.Add(key, keyPairs.Get(key));
+            }
+            //Convert Dictionary to Json
+            var entries = dictData.Select(d => string.Format("\"{0}\": \"{1}\"", d.Key, string.Join(",", d.Value)));
+            return "{" + string.Join(", \n", entries) + "}";
 
         }
     }

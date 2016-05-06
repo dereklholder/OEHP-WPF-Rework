@@ -23,5 +23,10 @@ namespace OEHP_WPF_Rework
         {
             InitializeComponent();
         }
+
+        private void closeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace OEHP_WPF_Rework
         public struct JsonResponse //Struct for Parsing JSON for use in displaying Payment Page
         {
             public string sealedSetupParameters { get; set; }
-            public string actionURL { get; set; }
+            public string actionUrl { get; set; }
             public string errorMessage { get; set; }
         }
 
@@ -56,7 +56,7 @@ namespace OEHP_WPF_Rework
                 //Get the response
                 WebResponse response = request.GetResponse();
 
-                //Get the stream contaiing content returned byt ghe server.
+                //Get the stream contaiing content returned by the server.
                 dataStream = response.GetResponseStream();
 
                 // Open the Stream using a streamreader for easy access.
